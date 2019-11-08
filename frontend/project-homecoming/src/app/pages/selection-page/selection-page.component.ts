@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SelectionPageComponent implements OnInit {
 
+  status: String;
+
   constructor() { }
 
   ngOnInit() {
+    this.status = '!isOn';
   }
+
 
 }
