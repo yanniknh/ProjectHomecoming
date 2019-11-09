@@ -1,6 +1,5 @@
 package de.homecoming.projecthomecoming.data;
 
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +11,6 @@ public class Occasion {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
-    private Date date;
     private long initiatorId;
     private String title;
     private String description;
@@ -20,8 +18,7 @@ public class Occasion {
 
 	protected Occasion() {}
 	
-	public Occasion(Date dateTime, int initiatorId, String title, String description, int maxParticipants) {
-        this.date = dateTime;
+	public Occasion(long initiatorId, String title, String description, int maxParticipants) {
         this.initiatorId = initiatorId;
         this.title = title;
         this.description = description;
@@ -31,8 +28,8 @@ public class Occasion {
     @Override
     public String toString() {
         return String.format(
-                "Occasion[id=%d, title='%s', description='%s', date='%s', initiator='%d']",
-                id, title, description, date, initiatorId);
+                "Occasion[id=%d, title='%s', description='%s', initiator='%d']",
+                id, title, description, initiatorId);
     }
 
     public long getId() {
@@ -41,14 +38,6 @@ public class Occasion {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public long getInitiatorId() {

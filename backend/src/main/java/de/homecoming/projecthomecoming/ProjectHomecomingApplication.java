@@ -135,7 +135,7 @@ public class ProjectHomecomingApplication {
 	}
 
 	@PostMapping(path = "/updateNutritionPreferences")
-	public void updateNutritionPreferences(@RequestBody UserWithPreferences userWithPreferences) {
+	public boolean updateNutritionPreferences(@RequestBody UserWithPreferences userWithPreferences) {
 		log.info("update nutrition preferences, user: " + userWithPreferences.toString());
 		// User user = new User(userWithPreferences.getAge(),
 		// userWithPreferences.getPhoneNumber(), userWithPreferences.getCity(),
@@ -144,10 +144,11 @@ public class ProjectHomecomingApplication {
 		// user = userRepository.save(user);
 		this.operator.updateNutritionPreferencesForUser(userWithPreferences.getId(), userPreferenceRepository,
 				userWithPreferences.getPreferences());
+		return true;
 	}
 
 	@PostMapping(path = "/updateNumberOfParticipantsPreferences")
-	public void updateNumberOfParticipantsPreferences(@RequestBody UserWithPreferences userWithPreferences) {
+	public UserWithPreferences updateNumberOfParticipantsPreferences(@RequestBody UserWithPreferences userWithPreferences) {
 		log.info("update number of participants preferences, user: " + userWithPreferences.toString());
 		// User user = new User(userWithPreferences.getAge(),
 		// userWithPreferences.getPhoneNumber(), userWithPreferences.getCity(),
@@ -156,6 +157,7 @@ public class ProjectHomecomingApplication {
 		// user = userRepository.save(user);
 		this.operator.updateNumberOfParticipantsPreferences(userWithPreferences.getId(), userPreferenceRepository,
 				userWithPreferences.getPreferences());
+		return userWithPreferences;
 	}
 
 	@GetMapping(path = "/initDatabase")
@@ -171,12 +173,23 @@ public class ProjectHomecomingApplication {
 		}
 
 		userPreferenceRepository.deleteAll();
-		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 2));
-		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 3));
-		userPreferenceRepository
-				.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 101));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 5));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 6));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 2));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 1));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 5));
+		
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 101));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 102));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 101));
+
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 201));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 202));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 201));
 
 		occasionRepository.deleteAll();
+		occasionRepository.save(new Occasion(userRepository.findByName("Lukas").get(0).getId(), "Super geile Occasion", "Mmmmmmmmmh.", 1));
+		occasionRepository.save(new Occasion(userRepository.findByName("Yannik").get(0).getId(), "Vegetarische Veggie Vomit Party", "Schmeckt lecker, auch beim zweiten Mal.", 5));
 
 		participationRepository.deleteAll();
 

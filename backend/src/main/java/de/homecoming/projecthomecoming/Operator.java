@@ -113,9 +113,21 @@ public class Operator {
 			}
 
 			boolean isGood = true;
-			if(!(Arrays.asList(preferencesFromInitiatorKeys).indexOf(301) > -1 && Arrays.asList(preferencesFromRequesterKeys).indexOf(301) > -1)){
+			boolean initiatorLikesToBeAtHome = (Arrays.asList(preferencesFromInitiatorKeys).indexOf(101) > -1);
+			boolean requesterLikesToBeAtHome = (Arrays.asList(preferencesFromRequesterKeys).indexOf(101) > -1);
+			if(!(initiatorLikesToBeAtHome == requesterLikesToBeAtHome)){
 				isGood = false;
 			}
+
+			boolean initiatorLikesToBeAlone = (Arrays.asList(preferencesFromInitiatorKeys).indexOf(201) > -1);
+			boolean requesterLikesToBeAlone = (Arrays.asList(preferencesFromRequesterKeys).indexOf(201) > -1);
+			if(!(initiatorLikesToBeAlone == requesterLikesToBeAlone)){
+				isGood = false;
+			}
+
+			// for(long id : Arrays.asList(preferencesFromInitiatorKeys)){
+
+			// }
 
 			if (isGood){
 				goodOccasions.add(occasion);
