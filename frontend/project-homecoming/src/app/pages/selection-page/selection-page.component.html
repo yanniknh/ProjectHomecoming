@@ -1,7 +1,32 @@
-<p>selection-page works!</p>
-<app-preference-selection *ngIf="!isOn"></app-preference-selection>
-<app-personal-information-registration *ngIf=status></app-personal-information-registration>
+<mat-card class="example-card" 
+          (swipeleft)="startAnimation('slideOutLeft')"
+          (swiperight)="startAnimation('zoomOutRight')"
+          (swipeup)="startAnimation('rotateOutUpRight')"
+          (swipedown)="startAnimation('flipOutY')">
+ 
+    <mat-card-content>
+        <img mat-card-image src="https://angular.io/assets/images/logos/angular/angular.svg" (swiperight)="startAnimation('wobble')">
+        
+      <p>
+          Learn one way to build applications with Angular and reuse your code and abilities to build apps for any deployment target. For web, mobile web, native mobile and native desktop.
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (swiperight)="startAnimation('wobble')">WOBBLE</button>
+      <button mat-raised-button color="primary" (tap)="startAnimation('swing')">SWING</button>
 
 
-<button pButton label="Submit" (click)="isOn= false">Submit</button>
-<button pButton label="Results" (click)="isOn= true">Results</button>
+      <h5>Custom Events</h5>
+      <button hammertime mat-raised-button color="accent" (doubleTap)="startAnimation('jello')">JELLO (doubleTap) </button>
+    </mat-card-actions>
+</mat-card>
+
+
+<mat-card class="example-card" (swipeleft)="startAnimation('wobble')" [@cardAnimator]="animationState" (@cardAnimator.done)="resetAnimationState()">
+    <mat-card-actions>
+        <div>
+            <app-personal-information-registration></app-personal-information-registration>
+        </div>
+    </mat-card-actions>
+</mat-card>
+
