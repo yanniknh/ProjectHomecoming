@@ -20,7 +20,7 @@ export class PreferenceSelectionComponent implements OnInit {
     this.user.preferences = [];
   }
 
-
+ 
 
   onClick(preferenceID: number){
     this.user.preferences.forEach(element => {
@@ -37,17 +37,14 @@ export class PreferenceSelectionComponent implements OnInit {
         }
         number++;
       });
-
       
-      alert('Erfolgreich abgewählt');
       this.checkPreference = false;
+
     }else{
-      this.user.preferences[this.numberOfPreferences] = preferenceID;
+
+    this.user.preferences[this.numberOfPreferences] = preferenceID;
     this.numberOfPreferences ++;
     console.log(this.user.preferences);
-    alert('Erfolgreich ausgewählt');
-    
-
     }
     
   }
@@ -62,6 +59,5 @@ export class PreferenceSelectionComponent implements OnInit {
     }
   }
   
-
-
 }
+

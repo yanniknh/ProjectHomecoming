@@ -1,10 +1,28 @@
 <p>Wie isst du?</p>
-<div class="container">
+
+<div class="container-fluid text-center">
     <div class="row">
-        <img src= "https://www1.wdr.de/verbraucher/rezepte/heimathaeppchen/kategorie-vegetarisch-100~_v-gseagaleriexl.jpg" (click)= "this.onClick(2)"/>
-    </div>
+        <img id="vegetarian" class="grayscale" src= "/assets/icons/vegetarisch.jpg" (click)= "this.onClick(2)" onclick="document.getElementById('vegetarian').classList.toggle('grayscale')">
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <img id="vegan" class="grayscale" src= "/assets/icons/vegan.png" (click)="this.onClick(2)" onclick="document.getElementById('vegan').classList.toggle('grayscale')">
+    </div> 
+    &nbsp;
     <div class="row">
-        <img src= "https://www.peta.de/mediadb/cache/990x655/Vegan-Obst-Gemuese-Adobe-Stock-119451803.jpeg" (click)= "this.onClick(1)"/>
+        <img id="halal" class="grayscale" src= "/assets/icons/halal.png" (click)= "this.onClick(5)" onclick="document.getElementById('halal').classList.toggle('grayscale')">
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <img id="kosher" class="grayscale" src= "assets/icons/kosher.png" (click)= "this.onClick(3)" onclick="document.getElementById('kosher').classList.toggle('grayscale')">
+    </div> 
+    &nbsp;
+    <div class="row">
+        <img id="lactose" class="grayscale" src= "/assets/icons/lactose.png" (click) = "this.onClick(6)" onclick="document.getElementById('lactose').classList.toggle('grayscale')">
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <img id="gluten" class="grayscale" src= "/assets/icons/gluten.jpg" (click)= "this.onClick(4)" onclick="document.getElementById('gluten').classList.toggle('grayscale')">
     </div>  
 </div>
 
