@@ -1,7 +1,12 @@
 package de.homecoming.projecthomecoming.data;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class User {
@@ -13,6 +18,8 @@ public class User {
 	private String phoneNumber;
 	private String city;
 	private String picture;
+//	@ManyToMany(cascade = CascadeType.ALL)
+//	private List <Preference> preferences;
 	
 	protected User() {}
 	
@@ -23,6 +30,16 @@ public class User {
 		this.city = city;
 		this.name = name;
 		this.picture = picture;
+	}
+	
+	public User(int age, String phoneNumber, String city, String name, String picture, List <Preference> preferences) {
+		super();
+		this.age = age;
+		this.phoneNumber = phoneNumber;
+		this.city = city;
+		this.name = name;
+		this.picture = picture;
+//		this.preferences = preferences;
 	}
 	
     @Override
@@ -79,7 +96,8 @@ public class User {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
+
 	
 	
 	
