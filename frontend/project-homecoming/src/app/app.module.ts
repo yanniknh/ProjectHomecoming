@@ -11,6 +11,8 @@ import { PersonalInformationRegistrationComponent } from './components/personal-
 import { LocationSelectionComponent } from './pages/location-selection/location-selection.component';
 import { GroupSizeSelectionComponent } from './pages/group-size-selection/group-size-selection.component';
 import { MealTimeSelectionComponent } from './pages/meal-time-selection/meal-time-selection.component';
+import { OccasionComponent } from './components/occasion/occasion.component';
+import { OccasionSelectComponent } from './pages/occasion-select/occasion-select.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { MealTimeSelectionComponent } from './pages/meal-time-selection/meal-tim
     LocationSelectionComponent,
     GroupSizeSelectionComponent,
     MealTimeSelectionComponent,
+    OccasionComponent,
+    OccasionSelectComponent,
   ],
   imports: [
     BrowserModule,
