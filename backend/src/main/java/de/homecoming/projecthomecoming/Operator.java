@@ -141,10 +141,9 @@ public class Operator {
 				goodOccasions.add(occasion);
 			}
 
-			return goodOccasions;
+			
 		}
-
-		return occasions;
+		return goodOccasions;
 	}
 
 }
