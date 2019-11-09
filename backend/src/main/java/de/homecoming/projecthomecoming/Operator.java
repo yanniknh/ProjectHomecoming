@@ -50,7 +50,7 @@ public class Operator {
 		}
 		if (preferences != null)
 			for (int preference : preferences) {
-				if(preference < 100) {
+				if (preference < 100) {
 					userPreferenceRepository.save(new UserPreference(userId, preference));
 				}
 			}
@@ -58,16 +58,16 @@ public class Operator {
 
 	public void updateLocationPreferencesForUser(long userId, UserPreferenceRepository userPreferenceRepository,
 			int[] preferences) {
-		log.info("Creating preferences for new user");
+		log.info("Creating preferences for user");
 
 		for (UserPreference oldPreference : userPreferenceRepository.findByUserId(userId)) {
-			if (oldPreference.getPreferenceId() > 100 && oldPreference.getPreferenceId() <200) {
+			if (oldPreference.getPreferenceId() > 100 && oldPreference.getPreferenceId() < 200) {
 				userPreferenceRepository.deleteByUserIdAndPreferenceId(userId, oldPreference.getPreferenceId());
 			}
 		}
 		if (preferences != null)
 			for (int preference : preferences) {
-				if(preference > 100 && preference <200){
+				if (preference > 100 && preference < 200) {
 					userPreferenceRepository.save(new UserPreference(userId, preference));
 				}
 			}
@@ -75,7 +75,7 @@ public class Operator {
 
 	public void updateNumberOfParticipantsPreferences(long userId, UserPreferenceRepository userPreferenceRepository,
 			int[] preferences) {
-
+		log.info("Update number of participants preferences for user");
 		for (UserPreference oldPreference : userPreferenceRepository.findByUserId(userId)) {
 			if (oldPreference.getPreferenceId() > 200) {
 				userPreferenceRepository.deleteByUserIdAndPreferenceId(userId, oldPreference.getPreferenceId());
@@ -83,65 +83,68 @@ public class Operator {
 		}
 		if (preferences != null)
 			for (int preference : preferences) {
-				if(preference > 200){
+				if (preference > 200) {
 					userPreferenceRepository.save(new UserPreference(userId, preference));
 				}
 			}
-		
+
 	}
-	
+
 	// ----------- Occasion Suggestions ----------------
-	public List<Occasion> getOccasionsByPreferences(UserPreferenceRepository userPreferenceRepository, OccasionRepository occasionRepository,
-			PreferenceRepository preferenceRepository, long userId) {
-		log.info("Alle Occasions für User");
-		
+	public List<Occasion> getOccasionsByPreferences(UserPreferenceRepository userPreferenceRepository,
+			OccasionRepository occasionRepository, PreferenceRepository preferenceRepository, long userId) {
+		log.info("Alle Occasions fuer User");
+
 		List<Occasion> occasions = (List<Occasion>) occasionRepository.findAll();
-		
+
 		List<UserPreference> preferencesFromRequester = userPreferenceRepository.findByUserId(userId);
 		long[] preferencesFromRequesterKeys = new long[preferencesFromRequester.size()];
-		for(long i = 0; i < preferencesFromRequesterKeys.length; i++) {
-			preferencesFromRequesterKeys[(int)i] = preferencesFromRequester.get((int)i).getPreferenceId();
+		for (long i = 0; i < preferencesFromRequesterKeys.length; i++) {
+			preferencesFromRequesterKeys[(int) i] = preferencesFromRequester.get((int) i).getPreferenceId();
 		}
-		
-		List<Occasion> goodOccasions = new ArrayList<Occasion>(); 
+
+		List<Occasion> goodOccasions = new ArrayList<Occasion>();
 
 		for (Occasion occasion : occasions) {
-			List <UserPreference> preferencesFromInitiator = userPreferenceRepository.findByUserId(occasion.getInitiatorId());
+			List<UserPreference> preferencesFromInitiator = userPreferenceRepository
+					.findByUserId(occasion.getInitiatorId());
 			long[] preferencesFromInitiatorKeys = new long[preferencesFromInitiator.size()];
-			for(long i = 0; i < preferencesFromInitiatorKeys.length; i++) {
-				preferencesFromInitiatorKeys[(int)i] = preferencesFromInitiator.get((int)i).getPreferenceId();
+			for (long i = 0; i < preferencesFromInitiatorKeys.length; i++) {
+				preferencesFromInitiatorKeys[(int) i] = preferencesFromInitiator.get((int) i).getPreferenceId();
 			}
 
 			boolean isGood = true;
 			boolean initiatorLikesToBeAtHome = (Arrays.asList(preferencesFromInitiatorKeys).indexOf(101) > -1);
 			boolean requesterLikesToBeAtHome = (Arrays.asList(preferencesFromRequesterKeys).indexOf(101) > -1);
-			if(!(initiatorLikesToBeAtHome == requesterLikesToBeAtHome)){
+			if (!(initiatorLikesToBeAtHome == requesterLikesToBeAtHome)) {
 				isGood = false;
 			}
 
 			boolean initiatorLikesToBeAlone = (Arrays.asList(preferencesFromInitiatorKeys).indexOf(201) > -1);
 			boolean requesterLikesToBeAlone = (Arrays.asList(preferencesFromRequesterKeys).indexOf(201) > -1);
-			if(!(initiatorLikesToBeAlone == requesterLikesToBeAlone)){
+			if (!(initiatorLikesToBeAlone == requesterLikesToBeAlone)) {
 				isGood = false;
 			}
 
 			boolean equalNutritionFormFound = false;
-			for(long id : preferencesFromInitiatorKeys){
-				if (Arrays.asList(preferencesFromRequesterKeys).indexOf(id) != -1){
-					equalNutritionFormFound = true;
+			for (long iniId : preferencesFromInitiatorKeys) {
+//				if (Arrays.asList(preferencesFromRequesterKeys).indexOf(5) != -1) {
+//					equalNutritionFormFound = true;
+//				}
+				for (long reqId : preferencesFromRequesterKeys) {
+					if (iniId == reqId)
+						equalNutritionFormFound = true;
 				}
 			}
 
-
-			if (isGood && equalNutritionFormFound){
+			if (isGood && equalNutritionFormFound) {
 				goodOccasions.add(occasion);
 			}
-			
+
 			return goodOccasions;
 		}
-		
+
 		return occasions;
 	}
-
 
 }

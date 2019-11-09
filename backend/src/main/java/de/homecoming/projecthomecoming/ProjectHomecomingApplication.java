@@ -173,8 +173,8 @@ public class ProjectHomecomingApplication {
 		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 201));
 
 		occasionRepository.deleteAll();
-		occasionRepository.save(new Occasion(userRepository.findByName("Lukas").get(0).getId(), "Super geile Occasion", "Mmmmmmmmmh.", 1));
-		occasionRepository.save(new Occasion(userRepository.findByName("Yannik").get(0).getId(), "Vegetarische Veggie Vomit Party", "Schmeckt lecker, auch beim zweiten Mal.", 5));
+		occasionRepository.save(new Occasion(userRepository.findByName("Lukas").get(0).getId(), "Super geile Occasion", "Mmmmmmmmmh.", 1, "bild.png"));
+		occasionRepository.save(new Occasion(userRepository.findByName("Yannik").get(0).getId(), "Vegetarische Veggie Vomit Party", "Schmeckt lecker, auch beim zweiten Mal.", 5, "bild.png"));
 
 		participationRepository.deleteAll();
 
