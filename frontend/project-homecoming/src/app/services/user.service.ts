@@ -67,7 +67,7 @@ export class UserService {
       })
     }; 
      // GetRequest 
-     return this._http.get<User[]>('${this.serverUrl}/get', httpOptions)
+     return this._http.get<User[]>('http://192.168.178.43:8080/get', httpOptions)
     }
   
    
