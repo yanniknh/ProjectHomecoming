@@ -1,5 +1,9 @@
 <p>selection-page works!</p>
-<app-preference-selection *ngIf="!isOn"></app-preference-selection>
+
+
+<app-preference-selection (swiperight)="onSwipeRight($event)" *ngIf="!isOn"></app-preference-selection>
+
+
 <app-personal-information-registration *ngIf=status></app-personal-information-registration>
 
 

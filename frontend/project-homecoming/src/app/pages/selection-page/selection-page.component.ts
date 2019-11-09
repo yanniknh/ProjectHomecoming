@@ -15,5 +15,8 @@ export class SelectionPageComponent implements OnInit {
     this.status = '!isOn';
   }
 
+  onSwipeRight(evt){
+    alert("Hello World");
+  }
 
 }
