@@ -12,6 +12,7 @@ import { OccasionServiceService } from 'src/app/services/occasion-service.servic
   {
     providedIn: 'root',
   })
+
   
 export class OccasionSelectComponent implements OnInit {
   occasionList: any = [];
@@ -26,6 +27,10 @@ export class OccasionSelectComponent implements OnInit {
       this.occasionList = data;
       console.log(data);
     });
+  }
+
+  removeOccasion(occasion: OccasionWithInitiator){
+    this.occasionList.filter( t => t.occasion.id !== occasion.occasion.id );
   }
 
 }
