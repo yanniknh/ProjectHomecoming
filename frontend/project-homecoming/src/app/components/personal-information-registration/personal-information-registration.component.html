@@ -1,4 +1,4 @@
-<h1>Persoenliche Informationen</h1>
+<h1>Jetzt registrieren und loslegen</h1>
 <div class="input-group">
     <div class="input-group-prepend">
       <span class="input-group-text" id="inputGroupFileAddon01">Profilbild</span>
@@ -11,12 +11,17 @@
 <div class="container">
 
     <form #personalInfoForm="ngForm" name="registerForm" (ngSubmit)="onSubmit(personalInfoForm.value)">
-          <div class="form-group">
+        <div class="form-group">
             <label for="name">Name</label>
-            <input ngModel #lastName="ngModel" name="lastName" name="lastName" id="lastName" class="form-control" type="text" required
-                placeholder="Nachname" pattern="[A-Za-z-äöüß]+"/>
-            <small id="lastNameHelpBlock" class="text-muted alert-danger"
-            *ngIf="lastName.touched && lastName.hasError('required')">Bitte Pflichtfeld ausfüllen!</small>
+            <input ngModel #Name="ngModel" name="name" name="name" id="name" class="form-control" type="text" required
+                placeholder="Name" pattern="[A-Za-z-äöüß]+"/>
+            <small id="NameHelpBlock" class="text-muted alert-danger"
+            *ngIf="Name.touched && Name.hasError('required')">Bitte Pflichtfeld ausfüllen!</small>
+        </div>
+        <div class="form-group">
+          <label for="age">Alter</label>
+          <input ngModel #Age="ngModel" name="age" name="age" id="age" class="form-control" type="number" required
+              placeholder="Alter"/>
         </div>
     
           <div class="form-group">
@@ -29,7 +34,7 @@
          
        
         <div class="form-row">
-                <span *ngIf="lastName.valid && phoneNumber.valid">
+                <span *ngIf="Name.valid && phoneNumber.valid">
                         <input type="submit" class="btn btn-primary" value="Registrieren" />
                 </span>
         </div>

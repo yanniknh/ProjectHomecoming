@@ -15,15 +15,15 @@ export class PreferenceSelectionComponent implements OnInit {
   ngOnInit() {
     this.numberOfPreferences = 0;
     this.user = new User();
-    this.user.preference = [];
+    this.user.preferences = [];
   }
 
 
 
   onClick(preferenceID: number){
-    this.user.preference[this.numberOfPreferences] = preferenceID;
+    this.user.preferences[this.numberOfPreferences] = preferenceID;
     this.numberOfPreferences ++;
-    console.log(this.user.preference);
+    console.log(this.user.preferences);
   }
 
   ngOnSubmit(){
