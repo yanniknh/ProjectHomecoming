@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +24,7 @@ import de.homecoming.projecthomecoming.data.User;
 import de.homecoming.projecthomecoming.data.UserPreference;
 import de.homecoming.projecthomecoming.data.UserPreferenceRepository;
 import de.homecoming.projecthomecoming.data.UserRepository;
+import de.homecoming.projecthomecoming.data.UserWithPreferences;
 
 @RestController
 @SpringBootApplication
@@ -73,9 +76,15 @@ public class ProjectHomecomingApplication {
 		return this.userRepository.findAll();
 	}
 
-	@PutMapping(path = "/users")
-	public User addUser(@Valid @RequestBody User user) {
-		return userRepository.save(user);
+	@CrossOrigin
+	@PostMapping(path = "/users")
+	public User addUser( @RequestBody UserWithPreferences userWithPreferences) {
+		log.info("user " + userWithPreferences.toString());
+		User user = new User(userWithPreferences.getAge(), userWithPreferences.getPhoneNumber(), userWithPreferences.getCity(), userWithPreferences.getName(), userWithPreferences.getPicture());
+		//Preference[] preferences = userWithPreferences.getPreferences();
+		user = userRepository.save(user);
+		this.operator.createPreferencesForNewUser(user.getId(), userPreferenceRepository, userWithPreferences.getPreferences());
+		return user;
 	}
 
 	@GetMapping(value = "/preferencesByUserId")
@@ -86,6 +95,11 @@ public class ProjectHomecomingApplication {
 	@GetMapping(value = "/occasions")
 	public Iterable getOccasions() {
 		return this.occasionRepository.findAll();
+	}
+
+	@GetMapping(value = "/suggestOccasions")
+	public Iterable getOccasions(@RequestParam("filter") long userId) {
+		return this.operator.getOccasionSuggestionsForUser(userPreferenceRepository, preferenceRepository, userId);
 	}
 
 	@PutMapping(path = "/occasions")
