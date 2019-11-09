@@ -11,8 +11,6 @@ public interface OccasionRepository extends CrudRepository<Occasion, Long> {
 
     List<Occasion> findByInitiatorId(long initiatorId);
 
-    List<Occasion> findByDate(Date date);
-
     List<Occasion> findByTitle(String title);
 
 }
