@@ -12,7 +12,7 @@ import javax.persistence.Id;
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	private long id;
 	private String name;
 	private int age;
 	private String phoneNumber;
@@ -49,7 +49,7 @@ public class User {
                 id, name, city, phoneNumber, age);
     }
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -93,7 +93,7 @@ public class User {
 		this.picture = picture;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
