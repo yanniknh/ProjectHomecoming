@@ -26,6 +26,7 @@ import de.homecoming.projecthomecoming.data.UserPreferenceRepository;
 import de.homecoming.projecthomecoming.data.UserRepository;
 import de.homecoming.projecthomecoming.data.UserWithPreferences;
 
+@CrossOrigin
 @RestController
 @SpringBootApplication
 public class ProjectHomecomingApplication {
@@ -76,14 +77,15 @@ public class ProjectHomecomingApplication {
 		return this.userRepository.findAll();
 	}
 
-	@CrossOrigin
 	@PostMapping(path = "/users")
-	public User addUser( @RequestBody UserWithPreferences userWithPreferences) {
-		log.info("user " + userWithPreferences.toString());
-		User user = new User(userWithPreferences.getAge(), userWithPreferences.getPhoneNumber(), userWithPreferences.getCity(), userWithPreferences.getName(), userWithPreferences.getPicture());
-		//Preference[] preferences = userWithPreferences.getPreferences();
+	public User addUser(@RequestBody UserWithPreferences userWithPreferences) {
+		log.info("user anlegen: " + userWithPreferences.toString());
+		User user = new User(userWithPreferences.getAge(), userWithPreferences.getPhoneNumber(),
+				userWithPreferences.getCity(), userWithPreferences.getName(), userWithPreferences.getPicture());
+		// Preference[] preferences = userWithPreferences.getPreferences();
 		user = userRepository.save(user);
-		this.operator.createPreferencesForNewUser(user.getId(), userPreferenceRepository, userWithPreferences.getPreferences());
+		this.operator.updateNutritionPreferencesForUser(user.getId(), userPreferenceRepository,
+				userWithPreferences.getPreferences());
 		return user;
 	}
 
@@ -102,7 +104,7 @@ public class ProjectHomecomingApplication {
 		return this.operator.getOccasionSuggestionsForUser(userPreferenceRepository, preferenceRepository, userId);
 	}
 
-	@PutMapping(path = "/occasions")
+	@PostMapping(path = "/occasions")
 	public Occasion addOccasion(@Valid @RequestBody Occasion occasion) {
 		return occasionRepository.save(occasion);
 	}
@@ -117,6 +119,41 @@ public class ProjectHomecomingApplication {
 		return this.preferenceRepository.findByType(type);
 	}
 
+	@PostMapping(path = "/updateLocationPreferences")
+	public boolean updateLocationPreferences(@RequestBody UserWithPreferences userWithPreferences) {
+		log.info("update location preferences, user: " + userWithPreferences.toString());
+		// User user = new User(userWithPreferences.getAge(),
+		// userWithPreferences.getPhoneNumber(), userWithPreferences.getCity(),
+		// userWithPreferences.getName(), userWithPreferences.getPicture());
+		// Preference[] preferences = userWithPreferences.getPreferences();
+		// user = userRepository.save(user);
+		this.operator.updateLocationPreferencesForUser(userWithPreferences.getId(), userPreferenceRepository,
+				userWithPreferences.getPreferences());
+		return true;
+	}
+
+	@PostMapping(path = "/updateNutritionPreferences")
+	public boolean updateNutritionPreferences(@RequestBody UserWithPreferences userWithPreferences) {
+		log.info("update nutrition preferences, user: " + userWithPreferences.toString());
+		// User user = new User(userWithPreferences.getAge(),
+		// userWithPreferences.getPhoneNumber(), userWithPreferences.getCity(),
+		// userWithPreferences.getName(), userWithPreferences.getPicture());
+		// Preference[] preferences = userWithPreferences.getPreferences();
+		// user = userRepository.save(user);
+		this.operator.updateNutritionPreferencesForUser(userWithPreferences.getId(), userPreferenceRepository,
+				userWithPreferences.getPreferences());
+		return true;
+	}
+
+//	@PostMapping(path = "/updateLocationPreferences")
+//	public boolean addUser( @RequestBody UserWithPreferences userWithPreferences) {
+//		log.info("user " + userWithPreferences.toString());
+//		User user = new User(userWithPreferences.getAge(), userWithPreferences.getPhoneNumber(), userWithPreferences.getCity(), userWithPreferences.getName(), userWithPreferences.getPicture());
+//		//Preference[] preferences = userWithPreferences.getPreferences();
+//		user = userRepository.save(user);
+//		this.operator.createPreferencesForNewUser(user.getId(), userPreferenceRepository, userWithPreferences.getPreferences());
+//		return user;
+//	}
 	@GetMapping(path = "/initDatabase")
 	public String initDatabase() {
 		userRepository.deleteAll();

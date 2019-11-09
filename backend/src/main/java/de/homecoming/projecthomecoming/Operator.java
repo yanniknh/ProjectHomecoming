@@ -40,10 +40,32 @@ public class Operator {
 		return preferences;
 	}
 
-	public void createPreferencesForNewUser(long userId, UserPreferenceRepository userPreferenceRepository, int[] preferences){
+	public void updateNutritionPreferencesForUser(long userId, UserPreferenceRepository userPreferenceRepository,
+			int[] preferences) {
 		log.info("Creating preferences for new user");
+		// TODO: drop vorher
+		for (UserPreference oldPreference : userPreferenceRepository.findByUserId(userId)) {
+			if (oldPreference.getPreferenceId() > 100) {
+				userPreferenceRepository.deleteByUserIdAndPreferenceId(userId, oldPreference.getPreferenceId());
+			}
+		}
 		if (preferences != null)
-			for (int preference : preferences){
+			for (int preference : preferences) {
+				userPreferenceRepository.save(new UserPreference(userId, preference));
+			}
+	}
+
+	public void updateLocationPreferencesForUser(long userId, UserPreferenceRepository userPreferenceRepository,
+			int[] preferences) {
+		log.info("Creating preferences for new user");
+
+		for (UserPreference oldPreference : userPreferenceRepository.findByUserId(userId)) {
+			if (oldPreference.getPreferenceId() < 100) {
+				userPreferenceRepository.deleteByUserIdAndPreferenceId(userId, oldPreference.getPreferenceId());
+			}
+		}
+		if (preferences != null)
+			for (int preference : preferences) {
 				userPreferenceRepository.save(new UserPreference(userId, preference));
 			}
 	}

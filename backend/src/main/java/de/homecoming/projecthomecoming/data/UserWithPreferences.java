@@ -24,5 +24,9 @@ public class UserWithPreferences extends User {
         this.preferences = preferences;
     }
 
+    @Override
+    public String toString() {
+    	return (super.toString() + preferences[0]);
+    }
     
 }
