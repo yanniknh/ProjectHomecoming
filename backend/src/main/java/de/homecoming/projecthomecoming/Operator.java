@@ -89,7 +89,7 @@ public class Operator {
 		
 	}
 	
-	// ----------- Occascion Suggestions ----------------
+	// ----------- Occasion Suggestions ----------------
 	public List<Occasion> getOccasionsByPreferences(UserPreferenceRepository userPreferenceRepository, OccasionRepository occasionRepository,
 			PreferenceRepository preferenceRepository, long userId) {
 		log.info("Alle Occasions für User");
@@ -97,14 +97,14 @@ public class Operator {
 		List<Occasion> occasions = (List<Occasion>) occasionRepository.findAll();
 		
 		List<UserPreference> preferencesFromRequester = userPreferenceRepository.findByUserId(userId);
-		int[] preferencesFromRequesterKeys = new int[preferencesFromRequester.size()];
-		for(UserPreference preference : preferencesFromRequester) {
-			preferencesFromRequesterKeys.
+		long[] preferencesFromRequesterKeys = new long[preferencesFromRequester.size()];
+		for(long i = 0; i < preferencesFromRequesterKeys.length; i++) {
+			preferencesFromRequesterKeys[(int)i] = preferencesFromRequester.get((int)i).getPreferenceId();
 		}
 		
 		for (Occasion occasion : occasions) {
 			List <UserPreference> preferencesFromInitiator = userPreferenceRepository.findByUserId(occasion.getInitiatorId());
-//			if ()
+			
 		}
 		//		occasionRepository.findBy
 //		List<UserPreference> userPreferences = userPreferenceRepository.findByUserId(userId);
