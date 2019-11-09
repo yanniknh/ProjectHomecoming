@@ -10,13 +10,13 @@ import javax.persistence.Id;
 public class UserPreference {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-	private Long userId;
-	private Long preferenceId;
+	private long id;
+	private long userId;
+	private long preferenceId;
 	
 	protected UserPreference() {}
 
-	public UserPreference(Long userId, Long preferenceId) {
+	public UserPreference(long userId, long preferenceId) {
 		super();
 		this.userId = userId;
 		this.preferenceId = preferenceId;
@@ -29,27 +29,27 @@ public class UserPreference {
                 id, userId, preferenceId);
     }
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public Long getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Long userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 
-	public Long getPreferenceId() {
+	public long getPreferenceId() {
 		return preferenceId;
 	}
 
-	public void setPreferenceId(Long preferenceId) {
+	public void setPreferenceId(long preferenceId) {
 		this.preferenceId = preferenceId;
 	}
 
