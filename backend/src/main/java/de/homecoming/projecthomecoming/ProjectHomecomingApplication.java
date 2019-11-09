@@ -74,7 +74,7 @@ public class ProjectHomecomingApplication {
 	}
 
 	@GetMapping(value = "/users")
-	public Iterable getUsers() {
+	public Iterable<User> getUsers() {
 		return this.userRepository.findAll();
 	}
 
@@ -91,17 +91,17 @@ public class ProjectHomecomingApplication {
 	}
 
 	@GetMapping(value = "/preferencesByUserId")
-	public Iterable getUserPreferences(@RequestParam("userId") long userId) {
+	public Iterable<Preference> getUserPreferences(@RequestParam("userId") long userId) {
 		return this.operator.getPreferencesByUserId(userPreferenceRepository, preferenceRepository, userId);
 	}
 
 	@GetMapping(value = "/occasions")
-	public Iterable getOccasions() {
+	public Iterable<Occasion> getOccasions() {
 		return this.occasionRepository.findAll();
 	}
 
 	@GetMapping(value = "/occasionsByPreferences")
-	public Iterable getOccasionsByPreferences(@RequestParam("userId") long userId) {
+	public Iterable<Occasion> getOccasionsByPreferences(@RequestParam("userId") long userId) {
 		return this.operator.getOccasionsByPreferences(userPreferenceRepository, occasionRepository,
 				preferenceRepository, userId);
 	}
@@ -112,17 +112,17 @@ public class ProjectHomecomingApplication {
 	}
 
 	@GetMapping(path = "/preferences")
-	public Iterable getPreferences() {
+	public Iterable<Preference> getPreferences() {
 		return this.preferenceRepository.findAll();
 	}
 
 	@GetMapping(path = "/preferences/type")
-	public Iterable getPreferencesByType(@RequestParam("filter") String type) {
+	public Iterable<Preference> getPreferencesByType(@RequestParam("filter") String type) {
 		return this.preferenceRepository.findByType(type);
 	}
 
 	@PostMapping(path = "/updateLocationPreferences")
-	public void updateLocationPreferences(@RequestBody UserWithPreferences userWithPreferences) {
+	public UserWithPreferences updateLocationPreferences(@RequestBody UserWithPreferences userWithPreferences) {
 		log.info("update location preferences, user: " + userWithPreferences.toString());
 		// User user = new User(userWithPreferences.getAge(),
 		// userWithPreferences.getPhoneNumber(), userWithPreferences.getCity(),
@@ -131,6 +131,7 @@ public class ProjectHomecomingApplication {
 		// user = userRepository.save(user);
 		this.operator.updateLocationPreferencesForUser(userWithPreferences.getId(), userPreferenceRepository,
 				userWithPreferences.getPreferences());
+		return userWithPreferences;
 	}
 
 	@PostMapping(path = "/updateNutritionPreferences")

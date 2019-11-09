@@ -1,6 +1,7 @@
 package de.homecoming.projecthomecoming;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -41,7 +42,7 @@ public class Operator {
 	public void updateNutritionPreferencesForUser(long userId, UserPreferenceRepository userPreferenceRepository,
 			int[] preferences) {
 		log.info("Creating preferences for new user");
-		// TODO: drop vorher
+
 		for (UserPreference oldPreference : userPreferenceRepository.findByUserId(userId)) {
 			if (oldPreference.getPreferenceId() < 100) {
 				userPreferenceRepository.deleteByUserIdAndPreferenceId(userId, oldPreference.getPreferenceId());
@@ -93,7 +94,7 @@ public class Operator {
 	public List<Occasion> getOccasionsByPreferences(UserPreferenceRepository userPreferenceRepository, OccasionRepository occasionRepository,
 			PreferenceRepository preferenceRepository, long userId) {
 		log.info("Alle Occasions für User");
-		//TODO maxpersonen
+		
 		List<Occasion> occasions = (List<Occasion>) occasionRepository.findAll();
 		
 		List<UserPreference> preferencesFromRequester = userPreferenceRepository.findByUserId(userId);
@@ -102,18 +103,26 @@ public class Operator {
 			preferencesFromRequesterKeys[(int)i] = preferencesFromRequester.get((int)i).getPreferenceId();
 		}
 		
+		List<Occasion> goodOccasions = new ArrayList<Occasion>(); 
+
 		for (Occasion occasion : occasions) {
 			List <UserPreference> preferencesFromInitiator = userPreferenceRepository.findByUserId(occasion.getInitiatorId());
+			long[] preferencesFromInitiatorKeys = new long[preferencesFromInitiator.size()];
+			for(long i = 0; i < preferencesFromInitiatorKeys.length; i++) {
+				preferencesFromInitiatorKeys[(int)i] = preferencesFromInitiator.get((int)i).getPreferenceId();
+			}
+
+			boolean isGood = true;
+			if(!(Arrays.asList(preferencesFromInitiatorKeys).indexOf(301) > -1 && Arrays.asList(preferencesFromRequesterKeys).indexOf(301) > -1)){
+				isGood = false;
+			}
+
+			if (isGood){
+				goodOccasions.add(occasion);
+			}
 			
+			return goodOccasions;
 		}
-		//		occasionRepository.findBy
-//		List<UserPreference> userPreferences = userPreferenceRepository.findByUserId(userId);
-//
-//		List<Preference> preferences = new ArrayList<Preference>();
-//
-//		for (UserPreference userPref : userPreferences) {
-//			preferences.add(preferenceRepository.findById(userPref.getPreferenceId()));
-//		}
 		
 		return occasions;
 	}
