@@ -108,7 +108,7 @@ export class UserService {
     };
 
      // Postrequest
-      return this._http.post<User>('http://192.168.178.43:8080/updateNumberOfParticipantsPreferences', currentUser, httpOptions);
+      return this._http.post<User>('http://localhost:8080/updateNumberOfParticipantsPreferences', currentUser, httpOptions);
   }
 
   public changeLocationPreference(currentUser: User): Observable <any> {
@@ -123,7 +123,7 @@ export class UserService {
     };
 
      // Postrequest
-      return this._http.post<User>('http://192.168.178.43:8080/updateLocationPreferences', currentUser, httpOptions);
+      return this._http.post<User>('http://localhost:8080/updateLocationPreferences', currentUser, httpOptions);
     }
   public createUser(user: User): Observable<User> {
 
@@ -135,7 +135,7 @@ export class UserService {
       })
     };
      // Postrequest
-     return this._http.post<User>('http://192.168.178.43:8080/users', user, httpOptions);
+     return this._http.post<User>('http://localhost:8080/users', user, httpOptions);
     }
 
     public getAllUsers() {
@@ -146,7 +146,7 @@ export class UserService {
       })
     };
      // GetRequest
-     return this._http.get<User[]>('http://192.168.178.43:8080/get', httpOptions)
+     return this._http.get<User[]>('http://localhost:8080/get', httpOptions)
     }
   
    

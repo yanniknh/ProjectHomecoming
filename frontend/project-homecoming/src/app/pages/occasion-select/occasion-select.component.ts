@@ -23,6 +23,7 @@ export class OccasionSelectComponent implements OnInit {
    }
 
   ngOnInit() {
+    console.log(JSON.parse(sessionStorage.getItem('currentUser')).id)
     this.occassionService.getOccasions(JSON.parse(sessionStorage.getItem('currentUser')).id).subscribe((data: {})=>{
       this.occasionList = data;
       console.log(data);
@@ -30,6 +31,7 @@ export class OccasionSelectComponent implements OnInit {
   }
 
   removeOccasion(occasion: OccasionWithInitiator){
+    console.log(occasion.occasion)
     this.occasionList.filter( t => t.occasion.id !== occasion.occasion.id );
   }
 

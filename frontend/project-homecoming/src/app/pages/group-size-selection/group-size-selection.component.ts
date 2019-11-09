@@ -16,7 +16,7 @@ export class GroupSizeSelectionComponent implements OnInit {
   
   onClick(option: number){
     this.userService.updateGroupPreferences(option);
-    this.router.navigateByUrl('/timeSelection');
+    this.router.navigateByUrl('/occasionSelection');
   }
 
 }
