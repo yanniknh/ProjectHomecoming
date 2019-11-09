@@ -51,7 +51,7 @@ export class UserService {
       return;
     }
     sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-    this.changeLocationPreference(this.currentUser);
+    this.changeLocationPreference(this.currentUser).subscribe(data => console.log(data));
   }
 
   setUserPersonalInfo(name: string, phone: string, age: number) {
@@ -78,7 +78,7 @@ export class UserService {
   }
   
 
-  public changeLocationPreference(currentUser: User) {
+  public changeLocationPreference(currentUser: User): Observable <any> {
 
     // Http Header
   
@@ -90,7 +90,7 @@ export class UserService {
     };
 
      // Postrequest
-     this._http.post('http://192.168.178.43:8080/updateLocationPreferences', currentUser, httpOptions);
+      return this._http.post<User>('http://192.168.178.43:8080/updateLocationPreferences', currentUser, httpOptions);
     }
   public createUser(user: User): Observable<User> {
 
@@ -111,8 +111,8 @@ export class UserService {
       headers: new HttpHeaders({
         'content-Type': 'application/json'
       })
-    }; 
-     // GetRequest 
+    };
+     // GetRequest
      return this._http.get<User[]>('http://192.168.178.43:8080/get', httpOptions)
     }
   

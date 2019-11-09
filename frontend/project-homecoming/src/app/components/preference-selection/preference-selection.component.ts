@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/User';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-preference-selection',
@@ -8,7 +9,7 @@ import { User } from 'src/app/models/User';
 })
 export class PreferenceSelectionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   numberOfPreferences: number;
   user: User;
@@ -45,6 +46,8 @@ export class PreferenceSelectionComponent implements OnInit {
     this.numberOfPreferences ++;
     console.log(this.user.preferences);
     alert('Erfolgreich ausgewählt');
+    
+
     }
     
   }
@@ -55,6 +58,7 @@ export class PreferenceSelectionComponent implements OnInit {
     }
     else{
       sessionStorage.setItem('user',JSON.stringify(this.user));
+      this.router.navigateByUrl('/personalInfo');
     }
   }
   
