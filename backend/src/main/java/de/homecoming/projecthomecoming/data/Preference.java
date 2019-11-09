@@ -14,8 +14,6 @@ public class Preference {
 	private String title;
 	
 	protected Preference () {}
-
-	
 	
 	public Preference(Long Id, String type, String title) {
 		super();
