@@ -11,6 +11,9 @@ export class UserService {
 
   private serverUrl = 'http://192.168.178.43:8080/users' // Url of server witch receive the request
   user: User;
+  currentUser: User;
+  locationPreferences: number[] = [];
+
   constructor(
     private _http: HttpClient // initialisation of client object
   )
@@ -18,6 +21,7 @@ export class UserService {
     if (sessionStorage.getItem('user') == null)
     {
       this.user = {
+        id: null,
         name: null,
         age: null,
         phoneNumber: null,
@@ -31,14 +35,41 @@ export class UserService {
     }
   }
 
+  updateLocationPreference(option: number)
+  {
+    this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+
+    //101 Home, 102 Restraurant, 103 either
+    if (option === 101) {
+      this.currentUser.preferences = [101];
+    } else if (option === 102) {
+      this.currentUser.preferences = [102];
+    } else if (option === 103) {
+      this.currentUser.preferences = [101, 102];
+    } else { 
+      console.log( "Es konnte keine Location gefunden werden" );
+      return;
+    }
+    sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+    this.changeLocationPreference(this.currentUser);
+  }
+
   setUserPersonalInfo(name: string, phone: string, age: number) {
     this.user.name = name;
     this.user.phoneNumber = phone;
     this.user.age = age;
     sessionStorage.setItem('user', JSON.stringify(this.user));
     this.user = JSON.parse(sessionStorage.getItem('user'));
-    this.createUser(this.user).subscribe(data => console.log(data));
+
     console.log(this.user);
+
+    this.createUser(this.user).subscribe(
+      (currentUser: User) => {
+        
+        sessionStorage.setItem('currentUser', JSON.stringify(currentUser)); 
+      }
+      );
+    //sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser));
   }
   
 
@@ -46,6 +77,21 @@ export class UserService {
     return sessionStorage.getItem('user');
   }
   
+
+  public changeLocationPreference(currentUser: User) {
+
+    // Http Header
+  
+    console.log(currentUser);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
+
+     // Postrequest
+     this._http.post('http://192.168.178.43:8080/updateLocationPreferences', currentUser, httpOptions);
+    }
   public createUser(user: User): Observable<User> {
 
     // Http Header
