@@ -113,38 +113,60 @@ public class Operator {
 				preferencesFromInitiatorKeys[(int) i] = preferencesFromInitiator.get((int) i).getPreferenceId();
 			}
 
-			boolean isGood = true;
-			boolean initiatorLikesToBeAtHome = (Arrays.asList(preferencesFromInitiatorKeys).indexOf(101) > -1);
-			boolean requesterLikesToBeAtHome = (Arrays.asList(preferencesFromRequesterKeys).indexOf(101) > -1);
-			if (!(initiatorLikesToBeAtHome == requesterLikesToBeAtHome)) {
-				isGood = false;
-			}
+			// boolean isGood = true;
+			// boolean initiatorLikesToBeAtHome = (Arrays.asList(preferencesFromInitiatorKeys).indexOf(101) > -1);
+			// boolean requesterLikesToBeAtHome = (Arrays.asList(preferencesFromRequesterKeys).indexOf(101) > -1);
 
-			boolean initiatorLikesToBeAlone = (Arrays.asList(preferencesFromInitiatorKeys).indexOf(201) > -1);
-			boolean requesterLikesToBeAlone = (Arrays.asList(preferencesFromRequesterKeys).indexOf(201) > -1);
-			if (!(initiatorLikesToBeAlone == requesterLikesToBeAlone)) {
-				isGood = false;
-			}
-
+			boolean equalLocationFound = false;
+			boolean equalParticipationFound = false;
 			boolean equalNutritionFormFound = false;
 			for (long iniId : preferencesFromInitiatorKeys) {
-//				if (Arrays.asList(preferencesFromRequesterKeys).indexOf(5) != -1) {
-//					equalNutritionFormFound = true;
-//				}
 				for (long reqId : preferencesFromRequesterKeys) {
-					if (iniId == reqId)
-						equalNutritionFormFound = true;
+					// location
+					if(reqId == 101 && iniId == 101){
+						equalLocationFound = true;
+					} else if (reqId == 102 && iniId == 102){
+						equalLocationFound = true;
+					}
+					// participants
+					if(reqId == 201 && iniId == 201){
+						equalParticipationFound = true;
+					} else if (reqId == 202 && iniId == 202){
+						equalParticipationFound = true;
+					}
+					// nutritions
+					if(iniId<100){
+						if (iniId == reqId)
+							equalNutritionFormFound = true;
+					}
 				}
 			}
 
-			if (isGood && equalNutritionFormFound) {
+			// if (!(initiatorLikesToBeAtHome == requesterLikesToBeAtHome)) {
+			// 	isGood = false;
+			// }
+
+			// boolean initiatorLikesToBeAlone = (Arrays.asList(preferencesFromInitiatorKeys).indexOf(201) > -1);
+			// boolean requesterLikesToBeAlone = (Arrays.asList(preferencesFromRequesterKeys).indexOf(201) > -1);
+			// if (!(initiatorLikesToBeAlone == requesterLikesToBeAlone)) {
+			// 	isGood = false;
+			// // }
+
+			// boolean equalNutritionFormFound = false;
+			// for (long iniId : preferencesFromInitiatorKeys) {
+			// 	for (long reqId : preferencesFromRequesterKeys) {
+			// 		if (iniId == reqId)
+			// 			equalNutritionFormFound = true;
+			// 	}
+			// }
+
+			if (equalLocationFound && equalParticipationFound && equalNutritionFormFound) {
 				goodOccasions.add(occasion);
 			}
 
-			return goodOccasions;
+			
 		}
-
-		return occasions;
+		return goodOccasions;
 	}
 
 }

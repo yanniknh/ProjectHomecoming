@@ -7,6 +7,7 @@ import { PreferenceSelectionComponent } from './components/preference-selection/
 import { GroupSizeSelectionComponent } from './pages/group-size-selection/group-size-selection.component';
 import { LocationSelectionComponent } from './pages/location-selection/location-selection.component';
 import { MealTimeSelectionComponent } from './pages/meal-time-selection/meal-time-selection.component';
+import { OccasionSelectComponent } from './pages/occasion-select/occasion-select.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
 { path: 'locationSelection', component: LocationSelectionComponent},
 { path: 'groupSelection', component: GroupSizeSelectionComponent},
 { path: 'timeSelection', component: MealTimeSelectionComponent},
-{ path: 'preferenceSelection', component: PreferenceSelectionComponent}
+{ path: 'preferenceSelection', component: PreferenceSelectionComponent},
+{ path: 'occasionSelection', component: OccasionSelectComponent}
 ];
 
 @NgModule({

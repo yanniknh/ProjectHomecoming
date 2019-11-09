@@ -108,7 +108,7 @@ export class UserService {
     };
 
      // Postrequest
-      return this._http.post<User>('http://192.168.178.43:8080/updateNumberOfParticipants', currentUser, httpOptions);
+      return this._http.post<User>('http://192.168.178.43:8080/updateNumberOfParticipantsPreferences', currentUser, httpOptions);
   }
 
   public changeLocationPreference(currentUser: User): Observable <any> {
