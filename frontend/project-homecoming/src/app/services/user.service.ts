@@ -35,6 +35,25 @@ export class UserService {
     }
   }
 
+  updateGroupPreferences(option: number){
+    this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+
+    //201 1on1, 202 Group Preference, 203 either
+    if (option === 201) {
+      this.currentUser.preferences = [201];
+    } else if (option === 202) {
+      this.currentUser.preferences = [202];
+    } else if (option === 203) {
+      this.currentUser.preferences = [201, 202];
+    } else {
+      console.log( "Es konnte keine Gruppenvorgabe gefunden werden" );
+      return;
+    }
+    sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+    this.changeGroupPreference(this.currentUser).subscribe(data => console.log(data));
+    
+  }
+
   updateLocationPreference(option: number)
   {
     this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
@@ -77,6 +96,20 @@ export class UserService {
     return sessionStorage.getItem('user');
   }
   
+  public changeGroupPreference(currentUser: User): Observable <any> {
+
+    // Http Header
+  
+    console.log(currentUser);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
+
+     // Postrequest
+      return this._http.post<User>('http://192.168.178.43:8080/updateNumberOfParticipants', currentUser, httpOptions);
+  }
 
   public changeLocationPreference(currentUser: User): Observable <any> {
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-group-size-selection',
@@ -8,12 +9,13 @@ import { Router } from '@angular/router';
 })
 export class GroupSizeSelectionComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
   }
   
-  next(){
+  onClick(option: number){
+    this.userService.updateGroupPreferences(option);
     this.router.navigateByUrl('/timeSelection');
   }
 
