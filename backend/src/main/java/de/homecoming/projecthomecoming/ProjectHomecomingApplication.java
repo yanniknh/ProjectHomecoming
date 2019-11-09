@@ -192,11 +192,17 @@ public class ProjectHomecomingApplication {
 
 		occasionRepository.deleteAll();
 		occasionRepository.save(new Occasion(userRepository.findByName("Lukas").get(0).getId(), "Super geile Occasion",
-				"Mmmmmmmmmh.", 1, "bild.png"));
+				"Mmmmmmmmmh.", 1, "/assets/img/pizza.jpg"));
 		occasionRepository.save(new Occasion(userRepository.findByName("Yannik").get(0).getId(),
-				"Vegetarische Veggie Vomit Party", "Schmeckt lecker, auch beim zweiten Mal.", 5, "bild.png"));
+				"Vegetarische Veggie Vomit Party", "Schmeckt lecker, auch beim zweiten Mal.", 5, "/assets/img/pudding.jpg"));
 		occasionRepository.save(new Occasion(userRepository.findByName("Felix").get(0).getId(),
-				"Vegetarische Veggie Vomit Party", "Schmeckt lecker, auch beim zweiten Mal.", 1, "bild.png"));
+				"Vegetarische Veggie Vomit Party", "Schmeckt lecker, auch beim zweiten Mal.", 1, "/assets/img/salad.jpg"));
+		occasionRepository.save(new Occasion(userRepository.findByName("Meik").get(0).getId(),
+				"Vegetarische Veggie Vomit Party", "Schmeckt lecker, auch beim zweiten Mal.", 1, "/assets/img/shashlick.jpg"));
+		occasionRepository.save(new Occasion(userRepository.findByName("Henrik").get(0).getId(),
+				"Vegetarische Veggie Vomit Party", "Schmeckt lecker, auch beim zweiten Mal.", 1, "/assets/img/sushi.jpg"));
+		occasionRepository.save(new Occasion(userRepository.findByName("Henrik").get(0).getId(),
+				"Vegetarische Veggie Vomit Party", "Schmeckt lecker, auch beim zweiten Mal.", 1, "/assets/img/steak.jpg"));
 
 		participationRepository.deleteAll();
 
