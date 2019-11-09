@@ -1,17 +1,29 @@
 .column {
-    float: left;
-    width: 33.33%;
-    padding: 5px;
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+@media screen and (max-width: 500px) {
+  .column {
+    width: 100%;
   }
-  
-  /* Clear floats after image containers */
-  .row::after {
-    content: "";
-    clear: both;
-    display: table;
-  }
-  @media screen and (max-width: 500px) {
-    .column {
-      width: 100%;
-    }
-  }
+}
+
+img {
+  max-width: 40%;
+  height: auto;
+}
+
+img.grayscale {
+  max-width: 40%;
+  height: auto;
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+}
