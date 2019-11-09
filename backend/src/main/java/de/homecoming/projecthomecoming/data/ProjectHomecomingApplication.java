@@ -22,7 +22,7 @@ public class ProjectHomecomingApplication {
 	
 	private static final Logger log = LoggerFactory.getLogger(ProjectHomecomingApplication.class);
 	public static void main(String[] args) {
-		SpringApplication.run(ProjectHomecomingApplication.class, args);
+		SpringApplication.run(ProjectHomecomingApplication.class, args); 
 	}
 
 	@Bean
