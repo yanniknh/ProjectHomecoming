@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,10 +19,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.homecoming.projecthomecoming.data.Occasion;
 import de.homecoming.projecthomecoming.data.OccasionRepository;
+import de.homecoming.projecthomecoming.data.ParticipationRepository;
 import de.homecoming.projecthomecoming.data.Preference;
 import de.homecoming.projecthomecoming.data.PreferenceRepository;
 import de.homecoming.projecthomecoming.data.User;
@@ -39,6 +42,35 @@ public class ProjectHomecomingApplication {
 	@Autowired
 	OccasionRepository occasionRepository;
 
+	@Autowired
+	PreferenceRepository preferenceRepository;
+
+	@Autowired
+	UserPreferenceRepository userPreferenceRepository;
+
+	@Autowired
+	ParticipationRepository participationRepository;
+
+
+	private User[] testUsers = {
+		 new User(22, "+49 176 0001", "Bielefeld", "Yannik", "profilePic"),
+		 new User(22, "+49 176 0002", "Bielefeld", "Felix", "profilePic"),
+		 new User(22, "+49 176 0003", "Bielefeld", "Meik", "profilePic"),
+		 new User(22, "+49 176 0004", "Bielefeld", "Henrik", "profilePic"),
+		 new User(22, "+49 176 0005", "Paderborn", "Lukas", "profilePic"),
+	};
+
+	private Preference[] preferences = {
+		new Preference((long) 1, "nutritionForms", "vegan"),
+		new Preference((long) 2, "nutritionForms", "vegetarian"),
+		new Preference((long) 3, "nutritionForms", "kosher"),
+		new Preference((long) 4, "nutritionForms", "glutenFree"),
+		new Preference((long) 5, "nutritionForms", "halal"),
+		new Preference((long) 6, "nutritionForms", "lactoseFree"),
+		new Preference((long) 101, "location", "home"),
+		new Preference((long) 102, "location", "outOfHome")
+	};
+
 	private static final Logger log = LoggerFactory.getLogger(ProjectHomecomingApplication.class);
 
 	public static void main(String[] args) {
@@ -47,12 +79,11 @@ public class ProjectHomecomingApplication {
 
 	@GetMapping(value = "/users")
 	public Iterable getUsers() {
-		Iterable users = this.userRepository.findAll();
-		return (users.iterator().hasNext() ? users : Arrays.asList());
+		return this.userRepository.findAll();
 	}
 
-	@PutMapping(path="/users")
-	public User addUser(@Valid @RequestBody User user){
+	@PutMapping(path = "/users")
+	public User addUser(@Valid @RequestBody User user) {
 		return userRepository.save(user);
 	}
 
@@ -61,41 +92,40 @@ public class ProjectHomecomingApplication {
 		return this.occasionRepository.findAll();
 	}
 
-	@PutMapping(path="/occasions")
-	public Occasion addOccasion(@Valid @RequestBody Occasion occasion){
+	@PutMapping(path = "/occasions")
+	public Occasion addOccasion(@Valid @RequestBody Occasion occasion) {
 		return occasionRepository.save(occasion);
 	}
 
-	// @Bean
-	// public CommandLineRunner demo(UserRepository userRepository, UserPreferenceRepository userprefRepository,
-	// 		PreferenceRepository prefRepository) {
-	// 	return (args) -> {
-	// 		User ulrich = new User(20, "1234234234", "Paderborn", "ulrich", "xyz");
-	// 		userRepository.save(ulrich);
-	// 		User meier = new User(20, "2343345", "Berlin", "meier", "xyz");
-	// 		userRepository.save(meier);
-	// 		Preference prefRestaurant = new Preference("place", "restaurant");
-	// 		prefRepository.save(prefRestaurant);
-	// 		userprefRepository.save(new UserPreference(userRepository.findByName("meier").get(0).getId(),
-	// 				prefRepository.findByTitle("restaurant").get(0).getId()));
-	// 		userprefRepository.save(new UserPreference(userRepository.findByName("ulrich").get(0).getId(),
-	// 				prefRepository.findByTitle("restaurant").get(0).getId()));
-	// 		ArrayList<Preference> preferences = new ArrayList<Preference>();
-	// 		// List <Preference> preferences = new ArrayList <Preference> {};
-	// 		preferences.add(new Preference("test", "test"));
-	// 		// repository.save(new User(21,"q123e213","Paderborn", "yannik", "xyz",
-	// 		// preferences));
-	// 		// User user = userRepository.findByAge(21).get(0);
-	// 		log.info("Alle User mit Title Restaurant in Preferences");
+	@GetMapping(path = "/preferences")
+	public Iterable getPreferences() {
+		return this.preferenceRepository.findAll();
+	}
 
-	// 		long restaurantId = prefRepository.findByTitle("restaurant").get(0).getId();
-	// 		ArrayList<UserPreference> userpreferenceList = (ArrayList<UserPreference>) userprefRepository
-	// 				.findByPreferenceId(restaurantId);
-	// 		for (UserPreference userPreference : userpreferenceList) {
-	// 			log.info(userRepository.findById(userPreference.getUserId()).toString());
-	// 		}
-	// 		// log.info("User gefunden: " + user.toString() + " Preferences = " +
-	// 		// user.getPreferences().get(0).toString());
-	// 	};
-	//}
+	@GetMapping(path = "/preferences/type")
+	public Iterable getPreferencesByType(@RequestParam("filter") String type) {
+		return this.preferenceRepository.findByType(type);
+	}
+
+	@GetMapping(path = "/initDatabase")
+	public String initDatabase() {
+		userRepository.deleteAll();
+		for(User user : testUsers){
+			userRepository.save(user);
+		}
+
+		preferenceRepository.deleteAll();
+		for(Preference preference : preferences){
+			preferenceRepository.save(preference);
+		}
+
+		userPreferenceRepository.deleteAll();
+
+		occasionRepository.deleteAll();
+
+		participationRepository.deleteAll();
+		
+		return "Database reset successful.";
+	}
+
 }
