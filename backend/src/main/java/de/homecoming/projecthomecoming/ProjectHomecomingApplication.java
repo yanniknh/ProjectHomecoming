@@ -61,8 +61,7 @@ public class ProjectHomecomingApplication {
 			new Preference((long) 6, "nutritionForms", "lactoseFree"), new Preference((long) 101, "location", "home"),
 			new Preference((long) 102, "location", "outOfHome"),
 			new Preference((long) 201, "numberOfParticipants", "oneOther"),
-			new Preference((long) 202, "numberOfParticipants", "multiple"),
-			};
+			new Preference((long) 202, "numberOfParticipants", "multiple"), };
 
 //	private UserPreference[] userPreferences = { new UserPreference((long) 1, (long) 2),
 //			new UserPreference((long) 1, (long) 3), new UserPreference((long) 1, (long) 102),
@@ -75,7 +74,7 @@ public class ProjectHomecomingApplication {
 	}
 
 	@GetMapping(value = "/users")
-	public Iterable getUsers() {
+	public Iterable<User> getUsers() {
 		return this.userRepository.findAll();
 	}
 
@@ -92,18 +91,19 @@ public class ProjectHomecomingApplication {
 	}
 
 	@GetMapping(value = "/preferencesByUserId")
-	public Iterable getUserPreferences(@RequestParam("userId") long userId) {
+	public Iterable<Preference> getUserPreferences(@RequestParam("userId") long userId) {
 		return this.operator.getPreferencesByUserId(userPreferenceRepository, preferenceRepository, userId);
 	}
 
 	@GetMapping(value = "/occasions")
-	public Iterable getOccasions() {
+	public Iterable<Occasion> getOccasions() {
 		return this.occasionRepository.findAll();
 	}
 
 	@GetMapping(value = "/occasionsByPreferences")
-	public Iterable getOccasionsByPreferences(@RequestParam("userId") long userId) {
-		return this.operator.getOccasionsByPreferences(userPreferenceRepository, occasionRepository, preferenceRepository, userId);
+	public Iterable<Occasion> getOccasionsByPreferences(@RequestParam("userId") long userId) {
+		return this.operator.getOccasionsByPreferences(userPreferenceRepository, occasionRepository,
+				preferenceRepository, userId);
 	}
 
 	@PostMapping(path = "/occasions")
@@ -112,17 +112,17 @@ public class ProjectHomecomingApplication {
 	}
 
 	@GetMapping(path = "/preferences")
-	public Iterable getPreferences() {
+	public Iterable<Preference> getPreferences() {
 		return this.preferenceRepository.findAll();
 	}
 
 	@GetMapping(path = "/preferences/type")
-	public Iterable getPreferencesByType(@RequestParam("filter") String type) {
+	public Iterable<Preference> getPreferencesByType(@RequestParam("filter") String type) {
 		return this.preferenceRepository.findByType(type);
 	}
 
 	@PostMapping(path = "/updateLocationPreferences")
-	public void updateLocationPreferences(@RequestBody UserWithPreferences userWithPreferences) {
+	public UserWithPreferences updateLocationPreferences(@RequestBody UserWithPreferences userWithPreferences) {
 		log.info("update location preferences, user: " + userWithPreferences.toString());
 		// User user = new User(userWithPreferences.getAge(),
 		// userWithPreferences.getPhoneNumber(), userWithPreferences.getCity(),
@@ -131,6 +131,7 @@ public class ProjectHomecomingApplication {
 		// user = userRepository.save(user);
 		this.operator.updateLocationPreferencesForUser(userWithPreferences.getId(), userPreferenceRepository,
 				userWithPreferences.getPreferences());
+		return userWithPreferences;
 	}
 
 	@PostMapping(path = "/updateNutritionPreferences")
@@ -144,7 +145,7 @@ public class ProjectHomecomingApplication {
 		this.operator.updateNutritionPreferencesForUser(userWithPreferences.getId(), userPreferenceRepository,
 				userWithPreferences.getPreferences());
 	}
-	
+
 	@PostMapping(path = "/updateNumberOfParticipantsPreferences")
 	public void updateNumberOfParticipantsPreferences(@RequestBody UserWithPreferences userWithPreferences) {
 		log.info("update number of participants preferences, user: " + userWithPreferences.toString());
