@@ -124,37 +124,22 @@ public class ProjectHomecomingApplication {
 	@PostMapping(path = "/updateLocationPreferences")
 	public UserWithPreferences updateLocationPreferences(@RequestBody UserWithPreferences userWithPreferences) {
 		log.info("update location preferences, user: " + userWithPreferences.toString());
-		// User user = new User(userWithPreferences.getAge(),
-		// userWithPreferences.getPhoneNumber(), userWithPreferences.getCity(),
-		// userWithPreferences.getName(), userWithPreferences.getPicture());
-		// Preference[] preferences = userWithPreferences.getPreferences();
-		// user = userRepository.save(user);
 		this.operator.updateLocationPreferencesForUser(userWithPreferences.getId(), userPreferenceRepository,
 				userWithPreferences.getPreferences());
 		return userWithPreferences;
 	}
 
 	@PostMapping(path = "/updateNutritionPreferences")
-	public boolean updateNutritionPreferences(@RequestBody UserWithPreferences userWithPreferences) {
+	public UserWithPreferences updateNutritionPreferences(@RequestBody UserWithPreferences userWithPreferences) {
 		log.info("update nutrition preferences, user: " + userWithPreferences.toString());
-		// User user = new User(userWithPreferences.getAge(),
-		// userWithPreferences.getPhoneNumber(), userWithPreferences.getCity(),
-		// userWithPreferences.getName(), userWithPreferences.getPicture());
-		// Preference[] preferences = userWithPreferences.getPreferences();
-		// user = userRepository.save(user);
 		this.operator.updateNutritionPreferencesForUser(userWithPreferences.getId(), userPreferenceRepository,
 				userWithPreferences.getPreferences());
-		return true;
+		return userWithPreferences;
 	}
 
 	@PostMapping(path = "/updateNumberOfParticipantsPreferences")
 	public UserWithPreferences updateNumberOfParticipantsPreferences(@RequestBody UserWithPreferences userWithPreferences) {
 		log.info("update number of participants preferences, user: " + userWithPreferences.toString());
-		// User user = new User(userWithPreferences.getAge(),
-		// userWithPreferences.getPhoneNumber(), userWithPreferences.getCity(),
-		// userWithPreferences.getName(), userWithPreferences.getPicture());
-		// Preference[] preferences = userWithPreferences.getPreferences();
-		// user = userRepository.save(user);
 		this.operator.updateNumberOfParticipantsPreferences(userWithPreferences.getId(), userPreferenceRepository,
 				userWithPreferences.getPreferences());
 		return userWithPreferences;

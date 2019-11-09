@@ -125,11 +125,15 @@ public class Operator {
 				isGood = false;
 			}
 
-			// for(long id : Arrays.asList(preferencesFromInitiatorKeys)){
+			boolean equalNutritionFormFound = false;
+			for(long id : preferencesFromInitiatorKeys){
+				if (Arrays.asList(preferencesFromRequesterKeys).indexOf(id) != -1){
+					equalNutritionFormFound = true;
+				}
+			}
 
-			// }
 
-			if (isGood){
+			if (isGood && equalNutritionFormFound){
 				goodOccasions.add(occasion);
 			}
 			
