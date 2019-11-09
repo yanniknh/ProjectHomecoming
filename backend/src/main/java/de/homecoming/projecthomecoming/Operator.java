@@ -93,11 +93,20 @@ public class Operator {
 	public List<Occasion> getOccasionsByPreferences(UserPreferenceRepository userPreferenceRepository, OccasionRepository occasionRepository,
 			PreferenceRepository preferenceRepository, long userId) {
 		log.info("Alle Occasions für User");
-		
-		List<Occasion> occasions = new ArrayList<Occasion>();
 		//TODO maxpersonen
+		List<Occasion> occasions = (List<Occasion>) occasionRepository.findAll();
 		
-//		occasionRepository.findBy
+		List<UserPreference> preferencesFromRequester = userPreferenceRepository.findByUserId(userId);
+		int[] preferencesFromRequesterKeys = new int[preferencesFromRequester.size()];
+		for(UserPreference preference : preferencesFromRequester) {
+			preferencesFromRequesterKeys.
+		}
+		
+		for (Occasion occasion : occasions) {
+			List <UserPreference> preferencesFromInitiator = userPreferenceRepository.findByUserId(occasion.getInitiatorId());
+//			if ()
+		}
+		//		occasionRepository.findBy
 //		List<UserPreference> userPreferences = userPreferenceRepository.findByUserId(userId);
 //
 //		List<Preference> preferences = new ArrayList<Preference>();

@@ -16,14 +16,16 @@ public class Occasion {
     private long initiatorId;
     private String title;
     private String description;
+    private int maxParticipants;
 
 	protected Occasion() {}
 	
-	public Occasion(Date dateTime, int initiatorId, String title, String description) {
+	public Occasion(Date dateTime, int initiatorId, String title, String description, int maxParticipants) {
         this.date = dateTime;
         this.initiatorId = initiatorId;
         this.title = title;
         this.description = description;
+        this.maxParticipants = maxParticipants;
 	}
 	
     @Override
@@ -72,5 +74,13 @@ public class Occasion {
     public void setDescription(String description) {
         this.description = description;
     }
+
+	public int getMaxParticipants() {
+		return maxParticipants;
+	}
+
+	public void setMaxParticipants(int maxParticipants) {
+		this.maxParticipants = maxParticipants;
+	}
 	
 }

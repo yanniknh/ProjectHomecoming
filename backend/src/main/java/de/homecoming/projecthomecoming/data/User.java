@@ -45,7 +45,7 @@ public class User {
     @Override
     public String toString() {
         return String.format(
-                "Customer[id=%d, name='%s', city='%s', phoneNumber='%s', age='%s']",
+                "User[id=%d, name='%s', city='%s', phoneNumber='%s', age='%s']",
                 id, name, city, phoneNumber, age);
     }
 

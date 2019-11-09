@@ -61,8 +61,7 @@ public class ProjectHomecomingApplication {
 			new Preference((long) 6, "nutritionForms", "lactoseFree"), new Preference((long) 101, "location", "home"),
 			new Preference((long) 102, "location", "outOfHome"),
 			new Preference((long) 201, "numberOfParticipants", "oneOther"),
-			new Preference((long) 202, "numberOfParticipants", "multiple"),
-			};
+			new Preference((long) 202, "numberOfParticipants", "multiple"), };
 
 //	private UserPreference[] userPreferences = { new UserPreference((long) 1, (long) 2),
 //			new UserPreference((long) 1, (long) 3), new UserPreference((long) 1, (long) 102),
@@ -103,7 +102,8 @@ public class ProjectHomecomingApplication {
 
 	@GetMapping(value = "/occasionsByPreferences")
 	public Iterable getOccasionsByPreferences(@RequestParam("userId") long userId) {
-		return this.operator.getOccasionsByPreferences(userPreferenceRepository, occasionRepository, preferenceRepository, userId);
+		return this.operator.getOccasionsByPreferences(userPreferenceRepository, occasionRepository,
+				preferenceRepository, userId);
 	}
 
 	@PostMapping(path = "/occasions")
@@ -144,7 +144,7 @@ public class ProjectHomecomingApplication {
 		this.operator.updateNutritionPreferencesForUser(userWithPreferences.getId(), userPreferenceRepository,
 				userWithPreferences.getPreferences());
 	}
-	
+
 	@PostMapping(path = "/updateNumberOfParticipantsPreferences")
 	public void updateNumberOfParticipantsPreferences(@RequestBody UserWithPreferences userWithPreferences) {
 		log.info("update number of participants preferences, user: " + userWithPreferences.toString());
