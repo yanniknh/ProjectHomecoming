@@ -1,5 +1,8 @@
 package de.homecoming.projecthomecoming;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import de.homecoming.projecthomecoming.data.Occasion;
 import de.homecoming.projecthomecoming.data.OccasionRepository;
+import de.homecoming.projecthomecoming.data.OccasionWithInitiator;
 import de.homecoming.projecthomecoming.data.ParticipationRepository;
 import de.homecoming.projecthomecoming.data.Preference;
 import de.homecoming.projecthomecoming.data.PreferenceRepository;
@@ -101,9 +105,16 @@ public class ProjectHomecomingApplication {
 	}
 
 	@GetMapping(value = "/occasionsByPreferences")
-	public Iterable<Occasion> getOccasionsByPreferences(@RequestParam("userId") long userId) {
-		return this.operator.getOccasionsByPreferences(userPreferenceRepository, occasionRepository,
+	public Iterable<OccasionWithInitiator> getOccasionsByPreferences(@RequestParam("userId") long userId) {
+		List<OccasionWithInitiator> occasionWithInitiator = new ArrayList<OccasionWithInitiator>();
+		List<Occasion> occasions = this.operator.getOccasionsByPreferences(userPreferenceRepository, occasionRepository,
 				preferenceRepository, userId);
+		for (Occasion occasion : occasions) {
+			occasionWithInitiator
+					.add(new OccasionWithInitiator(occasion, this.userRepository.findById(occasion.getInitiatorId())));
+		}
+
+		return occasionWithInitiator;
 	}
 
 	@PostMapping(path = "/occasions")
@@ -138,7 +149,8 @@ public class ProjectHomecomingApplication {
 	}
 
 	@PostMapping(path = "/updateNumberOfParticipantsPreferences")
-	public UserWithPreferences updateNumberOfParticipantsPreferences(@RequestBody UserWithPreferences userWithPreferences) {
+	public UserWithPreferences updateNumberOfParticipantsPreferences(
+			@RequestBody UserWithPreferences userWithPreferences) {
 		log.info("update number of participants preferences, user: " + userWithPreferences.toString());
 		this.operator.updateNumberOfParticipantsPreferences(userWithPreferences.getId(), userPreferenceRepository,
 				userWithPreferences.getPreferences());
@@ -163,18 +175,26 @@ public class ProjectHomecomingApplication {
 		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 2));
 		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 1));
 		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 5));
-		
-		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 101));
-		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 102));
-		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 101));
 
-		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 201));
-		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 202));
-		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 201));
+		userPreferenceRepository
+				.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 101));
+		userPreferenceRepository
+				.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 102));
+		userPreferenceRepository
+				.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 101));
+
+		userPreferenceRepository
+				.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 201));
+		userPreferenceRepository
+				.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 202));
+		userPreferenceRepository
+				.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 201));
 
 		occasionRepository.deleteAll();
-		occasionRepository.save(new Occasion(userRepository.findByName("Lukas").get(0).getId(), "Super geile Occasion", "Mmmmmmmmmh.", 1, "bild.png"));
-		occasionRepository.save(new Occasion(userRepository.findByName("Yannik").get(0).getId(), "Vegetarische Veggie Vomit Party", "Schmeckt lecker, auch beim zweiten Mal.", 5, "bild.png"));
+		occasionRepository.save(new Occasion(userRepository.findByName("Lukas").get(0).getId(), "Super geile Occasion",
+				"Mmmmmmmmmh.", 1, "bild.png"));
+		occasionRepository.save(new Occasion(userRepository.findByName("Yannik").get(0).getId(),
+				"Vegetarische Veggie Vomit Party", "Schmeckt lecker, auch beim zweiten Mal.", 5, "bild.png"));
 
 		participationRepository.deleteAll();
 
