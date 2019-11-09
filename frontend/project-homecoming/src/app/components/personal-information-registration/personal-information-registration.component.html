@@ -1,1 +1,37 @@
-<p>personal-information-registration works!</p>
+<h1>Persoenliche Informationen</h1>
+<div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroupFileAddon01">Profilbild</span>
+    </div>
+    <div class="custom-file">
+            <input type="file" class="custom-file-input" id="inputGroupFile01"
+              aria-describedby="inputGroupFileAddon01">
+    </div>
+</div>
+<div class="container">
+
+    <form #personalInfoForm="ngForm" name="registerForm" (ngSubmit)="onSubmit(personalInfoForm.value)">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input ngModel #lastName="ngModel" name="lastName" name="lastName" id="lastName" class="form-control" type="text" required
+                placeholder="Nachname" pattern="[A-Za-z-äöüß]+"/>
+            <small id="lastNameHelpBlock" class="text-muted alert-danger"
+            *ngIf="lastName.touched && lastName.hasError('required')">Bitte Pflichtfeld ausfüllen!</small>
+        </div>
+    
+          <div class="form-group">
+            <label for="phoneNumber">Telefonnummer</label>
+            <input ngModel #phoneNumber="ngModel" name="phoneNumber" id="phoneNumber" class="form-control" type="text" required
+                placeholder="Telefonnummer" pattern="[123456789]+"/>
+            <small id="phoneNumberHelpBlock" class="text-muted alert-danger"
+            *ngIf="phoneNumber.touched && phoneNumber.hasError('required')">Bitte Pflichtfeld ausfüllen!</small>
+          </div>
+         
+       
+        <div class="form-row">
+                <span *ngIf="lastName.valid && phoneNumber.valid">
+                        <input type="submit" class="btn btn-primary" value="Registrieren" />
+                </span>
+        </div>
+    </form>
+</div>

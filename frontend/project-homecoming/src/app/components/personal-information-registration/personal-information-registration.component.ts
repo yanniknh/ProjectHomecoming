@@ -12,4 +12,7 @@ export class PersonalInformationRegistrationComponent implements OnInit {
   ngOnInit() {
   }
 
+  onSubmit(any) {
+    console.log("Registered with"+ any.phoneNumber);
+  }
 }
