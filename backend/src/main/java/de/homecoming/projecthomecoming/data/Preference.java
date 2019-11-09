@@ -9,7 +9,6 @@ import javax.persistence.Id;
 @Entity
 public class Preference {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String type;
 	private String title;
@@ -18,8 +17,9 @@ public class Preference {
 
 	
 	
-	public Preference(String type, String title) {
+	public Preference(Long Id, String type, String title) {
 		super();
+		this.id = Id;
 		this.type = type;
 		this.title = title;
 	}
