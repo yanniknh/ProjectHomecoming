@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +25,7 @@ import de.homecoming.projecthomecoming.data.UserPreferenceRepository;
 import de.homecoming.projecthomecoming.data.UserRepository;
 import de.homecoming.projecthomecoming.data.UserWithPreferences;
 
+@CrossOrigin
 @RestController
 @SpringBootApplication
 public class ProjectHomecomingApplication {
@@ -59,7 +59,10 @@ public class ProjectHomecomingApplication {
 			new Preference((long) 4, "nutritionForms", "glutenFree"),
 			new Preference((long) 5, "nutritionForms", "halal"),
 			new Preference((long) 6, "nutritionForms", "lactoseFree"), new Preference((long) 101, "location", "home"),
-			new Preference((long) 102, "location", "outOfHome") };
+			new Preference((long) 102, "location", "outOfHome"),
+			new Preference((long) 201, "numberOfParticipants", "oneOther"),
+			new Preference((long) 202, "numberOfParticipants", "multiple"),
+			};
 
 //	private UserPreference[] userPreferences = { new UserPreference((long) 1, (long) 2),
 //			new UserPreference((long) 1, (long) 3), new UserPreference((long) 1, (long) 102),
@@ -76,14 +79,15 @@ public class ProjectHomecomingApplication {
 		return this.userRepository.findAll();
 	}
 
-	@CrossOrigin
 	@PostMapping(path = "/users")
-	public User addUser( @RequestBody UserWithPreferences userWithPreferences) {
-		log.info("user " + userWithPreferences.toString());
-		User user = new User(userWithPreferences.getAge(), userWithPreferences.getPhoneNumber(), userWithPreferences.getCity(), userWithPreferences.getName(), userWithPreferences.getPicture());
-		//Preference[] preferences = userWithPreferences.getPreferences();
+	public User addUser(@RequestBody UserWithPreferences userWithPreferences) {
+		log.info("user anlegen: " + userWithPreferences.toString());
+		User user = new User(userWithPreferences.getAge(), userWithPreferences.getPhoneNumber(),
+				userWithPreferences.getCity(), userWithPreferences.getName(), userWithPreferences.getPicture());
+		// Preference[] preferences = userWithPreferences.getPreferences();
 		user = userRepository.save(user);
-		this.operator.createPreferencesForNewUser(user.getId(), userPreferenceRepository, userWithPreferences.getPreferences());
+		this.operator.updateNutritionPreferencesForUser(user.getId(), userPreferenceRepository,
+				userWithPreferences.getPreferences());
 		return user;
 	}
 
@@ -97,12 +101,12 @@ public class ProjectHomecomingApplication {
 		return this.occasionRepository.findAll();
 	}
 
-	@GetMapping(value = "/suggestOccasions")
-	public Iterable getOccasions(@RequestParam("filter") long userId) {
-		return this.operator.getOccasionSuggestionsForUser(userPreferenceRepository, preferenceRepository, userId);
+	@GetMapping(value = "/occasionsByPreferences")
+	public Iterable getOccasionsByPreferences(@RequestParam("userId") long userId) {
+		return this.operator.getOccasionsByPreferences(userPreferenceRepository, occasionRepository, preferenceRepository, userId);
 	}
 
-	@PutMapping(path = "/occasions")
+	@PostMapping(path = "/occasions")
 	public Occasion addOccasion(@Valid @RequestBody Occasion occasion) {
 		return occasionRepository.save(occasion);
 	}
@@ -115,6 +119,42 @@ public class ProjectHomecomingApplication {
 	@GetMapping(path = "/preferences/type")
 	public Iterable getPreferencesByType(@RequestParam("filter") String type) {
 		return this.preferenceRepository.findByType(type);
+	}
+
+	@PostMapping(path = "/updateLocationPreferences")
+	public void updateLocationPreferences(@RequestBody UserWithPreferences userWithPreferences) {
+		log.info("update location preferences, user: " + userWithPreferences.toString());
+		// User user = new User(userWithPreferences.getAge(),
+		// userWithPreferences.getPhoneNumber(), userWithPreferences.getCity(),
+		// userWithPreferences.getName(), userWithPreferences.getPicture());
+		// Preference[] preferences = userWithPreferences.getPreferences();
+		// user = userRepository.save(user);
+		this.operator.updateLocationPreferencesForUser(userWithPreferences.getId(), userPreferenceRepository,
+				userWithPreferences.getPreferences());
+	}
+
+	@PostMapping(path = "/updateNutritionPreferences")
+	public void updateNutritionPreferences(@RequestBody UserWithPreferences userWithPreferences) {
+		log.info("update nutrition preferences, user: " + userWithPreferences.toString());
+		// User user = new User(userWithPreferences.getAge(),
+		// userWithPreferences.getPhoneNumber(), userWithPreferences.getCity(),
+		// userWithPreferences.getName(), userWithPreferences.getPicture());
+		// Preference[] preferences = userWithPreferences.getPreferences();
+		// user = userRepository.save(user);
+		this.operator.updateNutritionPreferencesForUser(userWithPreferences.getId(), userPreferenceRepository,
+				userWithPreferences.getPreferences());
+	}
+	
+	@PostMapping(path = "/updateNumberOfParticipantsPreferences")
+	public void updateNumberOfParticipantsPreferences(@RequestBody UserWithPreferences userWithPreferences) {
+		log.info("update number of participants preferences, user: " + userWithPreferences.toString());
+		// User user = new User(userWithPreferences.getAge(),
+		// userWithPreferences.getPhoneNumber(), userWithPreferences.getCity(),
+		// userWithPreferences.getName(), userWithPreferences.getPicture());
+		// Preference[] preferences = userWithPreferences.getPreferences();
+		// user = userRepository.save(user);
+		this.operator.updateNumberOfParticipantsPreferences(userWithPreferences.getId(), userPreferenceRepository,
+				userWithPreferences.getPreferences());
 	}
 
 	@GetMapping(path = "/initDatabase")

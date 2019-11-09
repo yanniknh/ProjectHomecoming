@@ -12,6 +12,7 @@ export class PreferenceSelectionComponent implements OnInit {
 
   numberOfPreferences: number;
   user: User;
+  checkPreference: boolean;
   ngOnInit() {
     this.numberOfPreferences = 0;
     this.user = new User();
@@ -21,9 +22,31 @@ export class PreferenceSelectionComponent implements OnInit {
 
 
   onClick(preferenceID: number){
-    this.user.preferences[this.numberOfPreferences] = preferenceID;
+    this.user.preferences.forEach(element => {
+      if(element == preferenceID){
+        this.checkPreference = true;
+      }
+    });
+    if(this.checkPreference == true){
+      this.numberOfPreferences --;
+      let number:number = 0;
+      this.user.preferences.forEach(element => {
+        if(element == preferenceID){
+          this.user.preferences.splice(number,1);
+        }
+        number++;
+      });
+
+      
+      alert('Erfolgreich abgewählt');
+      this.checkPreference = false;
+    }else{
+      this.user.preferences[this.numberOfPreferences] = preferenceID;
     this.numberOfPreferences ++;
     console.log(this.user.preferences);
+    alert('Erfolgreich ausgewählt');
+    }
+    
   }
 
   ngOnSubmit(){
