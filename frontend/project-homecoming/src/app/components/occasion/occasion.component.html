@@ -1,2 +1,6 @@
-<p>occasion works!</p>
-{{occasion.occasion.title}}
+<div (swiperight)="onSwipeRight(occasion,$event)" (swipeleft)="onSwipeLeft($event)">
+    <h1> {{occasion.occasion.title}}</h1>
+    <p>{{occasion.occasion.description}}</p>
+    <p> {{occasion.user.name}}</p>
+    <p> {{occasion.occasion.maxParticipants}}</p>
+</div>

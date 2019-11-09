@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { OccasionWithInitiator } from 'src/app/models/OccasionWithInitiator';
 
 @Component({
@@ -8,10 +8,19 @@ import { OccasionWithInitiator } from 'src/app/models/OccasionWithInitiator';
 })
 export class OccasionComponent implements OnInit {
   @Input() occasion: OccasionWithInitiator;
-
+  @Output() swipe: EventEmitter<OccasionWithInitiator> = new EventEmitter();
   constructor() { 
   
   }
+
+  onSwipeRight($event){
+    alert('Wisch nach rechts')
+  }
+  onSwipeLeft(occasion: OccasionWithInitiator, $event){
+    alert('Wisch nach links')
+    this.swipe.emit(occasion)
+  }
+  
 
   ngOnInit() {
   }
