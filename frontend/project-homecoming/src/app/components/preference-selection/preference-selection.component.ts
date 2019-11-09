@@ -31,7 +31,7 @@ export class PreferenceSelectionComponent implements OnInit {
       alert('Es wurde keine Auswahl getroffen')
     }
     else{
-      sessionStorage.setItem('User',JSON.stringify(this.user));
+      sessionStorage.setItem('user',JSON.stringify(this.user));
     }
   }
   
