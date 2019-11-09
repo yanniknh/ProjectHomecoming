@@ -45,13 +45,15 @@ public class Operator {
 		log.info("Creating preferences for new user");
 		// TODO: drop vorher
 		for (UserPreference oldPreference : userPreferenceRepository.findByUserId(userId)) {
-			if (oldPreference.getPreferenceId() > 100) {
+			if (oldPreference.getPreferenceId() < 100) {
 				userPreferenceRepository.deleteByUserIdAndPreferenceId(userId, oldPreference.getPreferenceId());
 			}
 		}
 		if (preferences != null)
 			for (int preference : preferences) {
-				userPreferenceRepository.save(new UserPreference(userId, preference));
+				if(preference < 100) {
+					userPreferenceRepository.save(new UserPreference(userId, preference));
+				}
 			}
 	}
 
@@ -60,13 +62,15 @@ public class Operator {
 		log.info("Creating preferences for new user");
 
 		for (UserPreference oldPreference : userPreferenceRepository.findByUserId(userId)) {
-			if (oldPreference.getPreferenceId() < 100) {
+			if (oldPreference.getPreferenceId() > 100) {
 				userPreferenceRepository.deleteByUserIdAndPreferenceId(userId, oldPreference.getPreferenceId());
 			}
 		}
 		if (preferences != null)
 			for (int preference : preferences) {
-				userPreferenceRepository.save(new UserPreference(userId, preference));
+				if(preference > 100){
+					userPreferenceRepository.save(new UserPreference(userId, preference));
+				}
 			}
 	}
 
