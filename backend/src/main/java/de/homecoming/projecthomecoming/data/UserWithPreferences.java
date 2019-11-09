@@ -1,27 +1,26 @@
 package de.homecoming.projecthomecoming.data;
 
-public class UserWithPreferences {
-    User user;
-    Preference[] preferences;
+public class UserWithPreferences extends User {
+    int[] preferences;
 
-    public UserWithPreferences (User user, Preference[] preferences){
-        this.user = user;
+    public UserWithPreferences (int age, String phoneNumber, String city, String name, String picture, int[] preferences){
+        super(age, phoneNumber, city, name, picture);
         this.preferences = preferences;
     }
 
-    public User getUser() {
-        return user;
-    }
+   // public User getUser() {
+   //     return super.get();
+   // }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+   // public void setUser(User user) {
+   //     this.user = user;
+   // }
 
-    public Preference[] getPreferences() {
+    public int[] getPreferences() {
         return preferences;
     }
 
-    public void setPreferences(Preference[] preferences) {
+    public void setPreferences(int[] preferences) {
         this.preferences = preferences;
     }
 

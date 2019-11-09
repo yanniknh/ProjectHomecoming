@@ -25,15 +25,38 @@ public class Operator {
 
 	private static final Logger log = LoggerFactory.getLogger(Operator.class);
 
-
 	// ----------- Preferences ----------------
-	public List<Preference> getPreferencesByUserId(UserPreferenceRepository userPreferenceRepository, PreferenceRepository preferenceRepository, long userId) {
+	public List<Preference> getPreferencesByUserId(UserPreferenceRepository userPreferenceRepository,
+			PreferenceRepository preferenceRepository, long userId) {
 		log.info("Alle User mit Title Restaurant in Preferences");
 
 		List<UserPreference> userPreferences = userPreferenceRepository.findByUserId(userId);
-		
+
 		List<Preference> preferences = new ArrayList<Preference>();
-		
+
+		for (UserPreference userPref : userPreferences) {
+			preferences.add(preferenceRepository.findById(userPref.getPreferenceId()));
+		}
+		return preferences;
+	}
+
+	public void createPreferencesForNewUser(long userId, UserPreferenceRepository userPreferenceRepository, int[] preferences){
+		log.info("Creating preferences for new user");
+		if (preferences != null)
+			for (int preference : preferences){
+				userPreferenceRepository.save(new UserPreference(userId, preference));
+			}
+	}
+
+	// ----------- Occascion Suggestions ----------------
+	public List<Preference> getOccasionSuggestionsForUser(UserPreferenceRepository userPreferenceRepository,
+			PreferenceRepository preferenceRepository, long userId) {
+		log.info("Alle Occasions für User");
+
+		List<UserPreference> userPreferences = userPreferenceRepository.findByUserId(userId);
+
+		List<Preference> preferences = new ArrayList<Preference>();
+
 		for (UserPreference userPref : userPreferences) {
 			preferences.add(preferenceRepository.findById(userPref.getPreferenceId()));
 		}
