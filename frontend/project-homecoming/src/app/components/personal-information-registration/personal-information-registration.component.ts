@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../../models/User';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-personal-information-registration',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./personal-information-registration.component.css']
 })
 export class PersonalInformationRegistrationComponent implements OnInit {
-
-  constructor() { }
+  createdUser: User;
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    //this.createdUser = this.userService.getUser
   }
 
+  onSubmit(any) {
+    this.userService.setUserPersonalInfo(any.name, any.phoneNumber, any.age);
+  }
 }
