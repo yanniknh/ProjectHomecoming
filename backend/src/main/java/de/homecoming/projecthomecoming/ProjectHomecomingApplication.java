@@ -55,7 +55,8 @@ public class ProjectHomecomingApplication {
 			new User(22, "+49 176 0002", "Bielefeld", "Felix", "profilePic"),
 			new User(22, "+49 176 0003", "Bielefeld", "Meik", "profilePic"),
 			new User(22, "+49 176 0004", "Bielefeld", "Henrik", "profilePic"),
-			new User(22, "+49 176 0005", "Paderborn", "Lukas", "profilePic"), };
+			new User(22, "+49 176 0005", "Paderborn", "Lukas", "profilePic"),
+			new User(22, "+49 176 0005", "Paderborn", "Laura", "profilePic") };
 
 	private Preference[] preferences = { new Preference((long) 1, "nutritionForms", "vegan"),
 			new Preference((long) 2, "nutritionForms", "vegetarian"),
@@ -66,10 +67,6 @@ public class ProjectHomecomingApplication {
 			new Preference((long) 102, "location", "outOfHome"),
 			new Preference((long) 201, "numberOfParticipants", "oneOther"),
 			new Preference((long) 202, "numberOfParticipants", "multiple"), };
-
-//	private UserPreference[] userPreferences = { new UserPreference((long) 1, (long) 2),
-//			new UserPreference((long) 1, (long) 3), new UserPreference((long) 1, (long) 102),
-//			new UserPreference((long) 2, (long) 101) };
 
 	private static final Logger log = LoggerFactory.getLogger(ProjectHomecomingApplication.class);
 
@@ -120,7 +117,7 @@ public class ProjectHomecomingApplication {
 	}
 
 	@PostMapping(path = "/occasions")
-	public Occasion addOccasion(@Valid @RequestBody Occasion occasion) {
+	public Occasion addOccasion(@RequestBody Occasion occasion) {
 		return occasionRepository.save(occasion);
 	}
 
@@ -172,18 +169,29 @@ public class ProjectHomecomingApplication {
 		}
 
 		userPreferenceRepository.deleteAll();
-		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 5));
-		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 6));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 4));
 		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 2));
 		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 1));
-		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 5));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 3));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 4));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 5));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 3));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 2));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Meik").get(0).getId(), (long) 4));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Henrik").get(0).getId(), (long) 5));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Laura").get(0).getId(), (long) 6));
 
 		userPreferenceRepository
 				.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 101));
 		userPreferenceRepository
-				.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 102));
+				.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 101));
 		userPreferenceRepository
-				.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 101));
+				.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 102));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Meik").get(0).getId(), (long) 10));
+		userPreferenceRepository
+				.save(new UserPreference(userRepository.findByName("Henrik").get(0).getId(), (long) 102));
+		userPreferenceRepository
+				.save(new UserPreference(userRepository.findByName("Laura").get(0).getId(), (long) 101));
 
 		userPreferenceRepository
 				.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 201));
@@ -191,12 +199,18 @@ public class ProjectHomecomingApplication {
 				.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 202));
 		userPreferenceRepository
 				.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 201));
+		userPreferenceRepository
+				.save(new UserPreference(userRepository.findByName("Meik").get(0).getId(), (long) 201));
+		userPreferenceRepository
+				.save(new UserPreference(userRepository.findByName("Henrik").get(0).getId(), (long) 201));
+		userPreferenceRepository
+				.save(new UserPreference(userRepository.findByName("Laura").get(0).getId(), (long) 201));
 
 		occasionRepository.deleteAll();
-		occasionRepository.save(new Occasion(userRepository.findByName("Lukas").get(0).getId(), "Pizza bei Lukas!",
-				"Wer hat Lust mit mir Pizza zu essen?", 1, "/assets/img/pizza.jpg"));
+		occasionRepository.save(new Occasion(userRepository.findByName("Lukas").get(0).getId(),
+				"glutenfreie Pizza bei Lukas!", "Wer hat Lust mit mir Pizza zu essen?", 1, "/assets/img/pizza.jpg"));
 		occasionRepository.save(new Occasion(userRepository.findByName("Yannik").get(0).getId(), "Pudding-Party",
-				"Ich möchte gerne neue Puddings testen. Gerne in einer kleineren Gruppe.", 5,
+				"Ich möchte gerne neue vegane Puddings testen. Gerne in einer kleineren Gruppe.", 5,
 				"/assets/img/pudding.jpg"));
 		occasionRepository.save(new Occasion(userRepository.findByName("Felix").get(0).getId(), "Super Salat Samstag!",
 				"Salat ist gut, vor allem vegetarisch. Wer möchte sich gerne in der Salatbar in der Mühlenstraße treffen?",
@@ -208,7 +222,7 @@ public class ProjectHomecomingApplication {
 				.save(new Occasion(userRepository.findByName("Henrik").get(0).getId(), "Das neue Mr. Sushi testen.",
 						"Ich möchte gerne mit dir das neue Mr. Sushi in der Bielefelder Innenstadt ausprobieren.", 1,
 						"/assets/img/sushi.jpg"));
-		occasionRepository.save(new Occasion(userRepository.findByName("Henrik").get(0).getId(), "Fleisch!",
+		occasionRepository.save(new Occasion(userRepository.findByName("Laura").get(0).getId(), "Fleisch!",
 				"Ich mache das beste Steak der Stadt. Du glaubst es nicht? Ich beweise es dir!", 1,
 				"/assets/img/steak.jpg"));
 
