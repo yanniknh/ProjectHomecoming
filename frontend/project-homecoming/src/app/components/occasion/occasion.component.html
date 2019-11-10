@@ -1,6 +1,9 @@
 <div (swiperight)="onSwipeRight(occasion,$event)" (swipeleft)="onSwipeLeft($event)">
-    <h1> {{occasion.occasion.title}}</h1>
-    <p>{{occasion.occasion.description}}</p>
-    <p> {{occasion.user.name}}</p>
-    <p> {{occasion.occasion.maxParticipants}}</p>
+    <h3> {{occasion.occasion.title}}</h3>
+   <!-- <img src="/./../..{{occasion.occasion.image}}.webp"> !-->
+    <img src='../../assets/img/pizza.webp' width="200px" heigth="100px"> 
+    <p> Bildadresse: {{occasion.occasion.picture}}</p>
+    <p> Beschreibung: {{occasion.occasion.description}}</p>
+    <p> Erstellt von: {{occasion.initiator.name}}</p>
+    <p> Personenzahl: {{occasion.occasion.maxParticipants}}</p>
 </div>

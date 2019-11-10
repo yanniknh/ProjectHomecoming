@@ -16,23 +16,34 @@ import { OccasionServiceService } from 'src/app/services/occasion-service.servic
   
 export class OccasionSelectComponent implements OnInit {
   occasionList: any = [];
+  completeOccasionList: any =[];
   occasion: OccasionWithInitiator;
+  i: number;
 
   constructor(private occassionService: OccasionServiceService) {
     
    }
 
   ngOnInit() {
-    console.log(JSON.parse(sessionStorage.getItem('currentUser')).id)
+    console.log("Fuer die UserID: "+JSON.parse(sessionStorage.getItem('currentUser')).id+" werden die moeglichen occasions gesucht");
     this.occassionService.getOccasions(JSON.parse(sessionStorage.getItem('currentUser')).id).subscribe((data: {})=>{
       this.occasionList = data;
-      console.log(data);
-    });
+      this.completeOccasionList = data;
+      this.i=0;
+      this.occasionList = this.occasionList.filter( t => t.occasion.id === this.occasionList[this.i].occasion.id );
+    })
+    
   }
 
   removeOccasion(occasion: OccasionWithInitiator){
-    console.log(occasion.occasion)
-    this.occasionList.filter( t => t.occasion.id !== occasion.occasion.id );
+    this.occasion = occasion;
+    if(this.i < this.completeOccasionList.length-1){
+      this.i = this.i+1;
+    this.occasionList = this.completeOccasionList.filter( t => t.occasion.id === this.completeOccasionList[this.i].occasion.id );
+    }else{
+      this.occasionList = this.completeOccasionList.filter( t => t.occasion.id === -1);
+      alert("End reached");
+    }
   }
 
 }
