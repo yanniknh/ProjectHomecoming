@@ -1,16 +1,13 @@
 
-<form #createOccasionForm="ngForm" name="createOccasionForm" (ngSubmit)="onSubmit(createOccasionForm.value)">
+<h1 style="text-align: center;">Erstell dir dein eigenes Event</h1>
+
+<form style=" margin:16px; font-size: 20px;" #createOccasionForm="ngForm" name="createOccasionForm" (ngSubmit)="onSubmit(createOccasionForm.value)">
     <div class="form-group">
         <label for="title">Titel</label>
         <input ngModel #title="ngModel" name="title" name="title" id="title" class="form-control" type="text" required
             placeholder="Titel" pattern="[A-Za-z-äöüß ]+"/>
         <small id="NameHelpBlock" class="text-muted alert-danger"
         *ngIf="title.touched && title.hasError('required')">Bitte Pflichtfeld ausfüllen!</small>
-    </div>
-    <div class="form-group">
-      <label for="picture">Bildpfad</label>
-      <input ngModel #Picture="ngModel" name="picture" name="picture" id="picture" class="form-control" type="text" required
-          placeholder="Bildpfad"/>
     </div>
 
       <div class="form-group">
@@ -20,7 +17,16 @@
         <small id="descriptionHelpBlock" class="text-muted alert-danger"
         *ngIf="description.touched && description.hasError('required')">Bitte Pflichtfeld ausfüllen!</small>
       </div>
-     
+   
+      <div class="input-group">
+        <div style="text-align: left;" class="input-group-prepend">
+          <span  class="input-group-text"  id="inputGroupFileAddon01">Eventbild</span>
+        </div>
+        <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                  aria-describedby="inputGroupFileAddon01">
+        </div>
+    </div>
    
     <div class="form-row">
             <span *ngIf="title.valid && description.valid">

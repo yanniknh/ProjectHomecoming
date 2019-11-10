@@ -26,13 +26,12 @@ export class OccasionCreateComponent implements OnInit {
   onSubmit(any){
     this.occasionWithInitiator.initiator = this.user;
     this.occasion.description = any.description;
-    this.occasion.picture = any.picture;
     this.occasion.title = any.title;
     this.occasionWithInitiator.occasion = this.occasion;
     console.log(this.occasionWithInitiator);
     this.occasionService.postOccasion(this.occasionWithInitiator).subscribe(
       (occasion: OccasionWithInitiator) => {
-        
+        alert('Es wurde ein Event angelegt')
         console.log(occasion);
       }
       );
