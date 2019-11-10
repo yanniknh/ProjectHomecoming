@@ -9,18 +9,22 @@ import { OccasionWithInitiator } from 'src/app/models/OccasionWithInitiator';
 export class OccasionComponent implements OnInit {
   @Input() occasion: any;
   @Output() swipeLeft: EventEmitter<any> = new EventEmitter();
-  
-  constructor() { 
-    
+  @Output() swipeRight: EventEmitter<any> = new EventEmitter();
+
+  constructor() {
   }
 
   ngOnInit() {
   }
   
-  onSwipeRight($event){
-    alert('Wisch nach rechts')
+  onSwipeRight($events){
+    alert('Wisch nach rechts');
+    sessionStorage.setItem('match',JSON.stringify(this.occasion));
+    console.log(this.occasion.occasion.title+ " wurde nach rechts gewischt");
+    this.swipeRight.emit(JSON.stringify(this.occasion));
+
   }
-  onSwipeLeft(occasion: OccasionWithInitiator, $event){
+  onSwipeLeft($event){
     alert('Wisch nach links');
     console.log(this.occasion.occasion.title+ " wurde nach links gewischt");
     this.swipeLeft.emit(JSON.stringify(this.occasion));
