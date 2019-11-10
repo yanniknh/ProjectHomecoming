@@ -1,5 +1,5 @@
-<p>Wie isst du?</p>
-
+<div class="container">
+<h1>Worauf sollen wir achten?</h1>
 <div class="container-fluid text-center">
     <div class="row">
         <img id="vegetarian" class="grayscale" src= "/assets/icons/vegetarisch.jpg" (click)= "this.onClick(2)" onclick="document.getElementById('vegetarian').classList.toggle('grayscale')">
@@ -24,6 +24,9 @@
         &nbsp;
         <img id="gluten" class="grayscale" src= "/assets/icons/gluten.jpg" (click)= "this.onClick(4)" onclick="document.getElementById('gluten').classList.toggle('grayscale')">
     </div>  
+    <br>
+    <button (click)= "this.ngOnSubmit()">Weiter</button>
+</div>
 </div>
 
-<button (click)= "this.ngOnSubmit()">Weiter</button>
+
