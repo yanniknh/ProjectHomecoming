@@ -32,4 +32,14 @@ export class OccasionServiceService {
       return this.http.get<any>('http://localhost:8080/occasionsByPreferences?userId='+id, httpOptions);
 
   }
+
+  postOccasion(occasionWithInitiator: OccasionWithInitiator){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json'
+      })
+    };
+
+    return this.http.post<OccasionWithInitiator>('http://localhost:8080/occasions',occasionWithInitiator, httpOptions);
+  }
 }

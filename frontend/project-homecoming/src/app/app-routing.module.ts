@@ -9,6 +9,7 @@ import { LocationSelectionComponent } from './pages/location-selection/location-
 import { MealTimeSelectionComponent } from './pages/meal-time-selection/meal-time-selection.component';
 import { OccasionSelectComponent } from './pages/occasion-select/occasion-select.component';
 import { ConfirmationPageComponent } from './pages/confirmation-page/confirmation-page.component';
+import { OccasionCreateComponent } from './pages/occasion-create/occasion-create.component';
 
 
 const routes: Routes = [
@@ -20,7 +21,11 @@ const routes: Routes = [
 { path: 'timeSelection', component: MealTimeSelectionComponent},
 { path: 'preferenceSelection', component: PreferenceSelectionComponent},
 { path: 'occasionSelection', component: OccasionSelectComponent},
+<<<<<<< HEAD
 { path: 'confirmation', component: ConfirmationPageComponent}
+=======
+{ path: 'createOccasion', component: OccasionCreateComponent}
+>>>>>>> 7e57ddba8af6ef8423f5248986616f5aaf8ee313
 ];
 
 @NgModule({
