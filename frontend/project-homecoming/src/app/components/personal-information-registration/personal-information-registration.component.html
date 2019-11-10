@@ -15,7 +15,7 @@
         <div class="form-group">
             <label for="name">Name</label>
             <input ngModel #Name="ngModel" name="name" name="name" id="name" class="form-control" type="text" required
-                placeholder="Name" pattern="[A-Za-z-äöüß]+"/>
+                placeholder="Name" pattern="[A-Za-z-äöüß ]+"/>
             <small id="NameHelpBlock" class="text-muted alert-danger"
             *ngIf="Name.touched && Name.hasError('required')">Bitte Pflichtfeld ausfüllen!</small>
         </div>
@@ -28,7 +28,7 @@
           <div class="form-group">
             <label for="phoneNumber">Telefonnummer</label>
             <input ngModel #phoneNumber="ngModel" name="phoneNumber" id="phoneNumber" class="form-control" type="text" required
-                placeholder="Telefonnummer" pattern="[123456789]+"/>
+                placeholder="Telefonnummer"/>
             <small id="phoneNumberHelpBlock" class="text-muted alert-danger"
             *ngIf="phoneNumber.touched && phoneNumber.hasError('required')">Bitte Pflichtfeld ausfüllen!</small>
           </div>

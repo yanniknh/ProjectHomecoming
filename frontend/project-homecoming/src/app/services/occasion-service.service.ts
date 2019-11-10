@@ -29,7 +29,7 @@ export class OccasionServiceService {
     };
 
      // Postrequest
-      return this.http.get<any>('http://192.168.178.43:8080/occasionsByPreferences?userId='+id, httpOptions);
+      return this.http.get<any>('http://localhost:8080/occasionsByPreferences?userId='+id, httpOptions);
 
   }
 }
