@@ -103,7 +103,7 @@ public class Operator {
 		}
 
 		List<Occasion> goodOccasions = new ArrayList<Occasion>();
-
+		
 		for (Occasion occasion : occasions) {
 			List<UserPreference> preferencesFromInitiator = userPreferenceRepository
 					.findByUserId(occasion.getInitiatorId());
