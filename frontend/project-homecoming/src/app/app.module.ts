@@ -13,6 +13,7 @@ import { GroupSizeSelectionComponent } from './pages/group-size-selection/group-
 import { MealTimeSelectionComponent } from './pages/meal-time-selection/meal-time-selection.component';
 import { OccasionComponent } from './components/occasion/occasion.component';
 import { OccasionSelectComponent } from './pages/occasion-select/occasion-select.component';
+import { OccasionCreateComponent } from './pages/occasion-create/occasion-create.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { OccasionSelectComponent } from './pages/occasion-select/occasion-select
     MealTimeSelectionComponent,
     OccasionComponent,
     OccasionSelectComponent,
+    OccasionCreateComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,32 @@
+<p>occasion-create works!</p>
+
+
+<form #createOccasionForm="ngForm" name="createOccasionForm" (ngSubmit)="onSubmit(createOccasionForm.value)">
+    <div class="form-group">
+        <label for="title">Titel</label>
+        <input ngModel #title="ngModel" name="title" name="title" id="title" class="form-control" type="text" required
+            placeholder="Titel" pattern="[A-Za-z-äöüß ]+"/>
+        <small id="NameHelpBlock" class="text-muted alert-danger"
+        *ngIf="title.touched && title.hasError('required')">Bitte Pflichtfeld ausfüllen!</small>
+    </div>
+    <div class="form-group">
+      <label for="picture">Bildpfad</label>
+      <input ngModel #Picture="ngModel" name="picture" name="picture" id="picture" class="form-control" type="text" required
+          placeholder="Bildpfad"/>
+    </div>
+
+      <div class="form-group">
+        <label for="description">Beschreibung</label>
+        <input ngModel #description="ngModel" name="description" id="description" class="form-control" type="text" required
+            placeholder="Beschreibung"/>
+        <small id="descriptionHelpBlock" class="text-muted alert-danger"
+        *ngIf="description.touched && description.hasError('required')">Bitte Pflichtfeld ausfüllen!</small>
+      </div>
+     
+   
+    <div class="form-row">
+            <span *ngIf="title.valid && description.valid">
+                    <input type="submit" class="btn btn-primary" value="Erstellen" />
+            </span>
+    </div>
+</form>
