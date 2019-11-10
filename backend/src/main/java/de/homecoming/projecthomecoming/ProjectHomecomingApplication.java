@@ -110,8 +110,10 @@ public class ProjectHomecomingApplication {
 		List<Occasion> occasions = this.operator.getOccasionsByPreferences(userPreferenceRepository, occasionRepository,
 				preferenceRepository, userId);
 		for (Occasion occasion : occasions) {
-			occasionWithInitiator
-					.add(new OccasionWithInitiator(occasion, this.userRepository.findById(occasion.getInitiatorId())));
+			if (userId != occasion.getInitiatorId()) {
+				occasionWithInitiator.add(
+						new OccasionWithInitiator(occasion, this.userRepository.findById(occasion.getInitiatorId())));
+			}
 		}
 
 		return occasionWithInitiator;
@@ -193,16 +195,22 @@ public class ProjectHomecomingApplication {
 		occasionRepository.deleteAll();
 		occasionRepository.save(new Occasion(userRepository.findByName("Lukas").get(0).getId(), "Pizza bei Lukas!",
 				"Wer hat Lust mit mir Pizza zu essen?", 1, "/assets/img/pizza.jpg"));
-		occasionRepository.save(new Occasion(userRepository.findByName("Yannik").get(0).getId(),
-				"Pudding-Party", "Ich möchte gerne neue Puddings testen. Gerne in einer kleineren Gruppe.", 5, "/assets/img/pudding.jpg"));
-		occasionRepository.save(new Occasion(userRepository.findByName("Felix").get(0).getId(),
-				"Super Salat Samstag!", "Salat ist gut, vor allem vegetarisch. Wer möchte sich gerne in der Salatbar in der Mühlenstraße treffen?", 1, "/assets/img/salad.jpg"));
-		occasionRepository.save(new Occasion(userRepository.findByName("Meik").get(0).getId(),
-				"Grillparty", "Zur Einweihung meiner neuen Terasse können wir ein paar Spieße grillen.", 1, "/assets/img/shashlick.jpg"));
-		occasionRepository.save(new Occasion(userRepository.findByName("Henrik").get(0).getId(),
-				"Das neue Mr. Sushi testen.", "Ich möchte gerne mit dir das neue Mr. Sushi in der Bielefelder Innenstadt ausprobieren.", 1, "/assets/img/sushi.jpg"));
-		occasionRepository.save(new Occasion(userRepository.findByName("Henrik").get(0).getId(),
-				"Fleisch!", "Ich mache das beste Steak der Stadt. Du glaubst es nicht? Ich beweise es dir!", 1, "/assets/img/steak.jpg"));
+		occasionRepository.save(new Occasion(userRepository.findByName("Yannik").get(0).getId(), "Pudding-Party",
+				"Ich möchte gerne neue Puddings testen. Gerne in einer kleineren Gruppe.", 5,
+				"/assets/img/pudding.jpg"));
+		occasionRepository.save(new Occasion(userRepository.findByName("Felix").get(0).getId(), "Super Salat Samstag!",
+				"Salat ist gut, vor allem vegetarisch. Wer möchte sich gerne in der Salatbar in der Mühlenstraße treffen?",
+				1, "/assets/img/salad.jpg"));
+		occasionRepository.save(new Occasion(userRepository.findByName("Meik").get(0).getId(), "Grillparty",
+				"Zur Einweihung meiner neuen Terasse können wir ein paar Spieße grillen.", 1,
+				"/assets/img/shashlick.jpg"));
+		occasionRepository
+				.save(new Occasion(userRepository.findByName("Henrik").get(0).getId(), "Das neue Mr. Sushi testen.",
+						"Ich möchte gerne mit dir das neue Mr. Sushi in der Bielefelder Innenstadt ausprobieren.", 1,
+						"/assets/img/sushi.jpg"));
+		occasionRepository.save(new Occasion(userRepository.findByName("Henrik").get(0).getId(), "Fleisch!",
+				"Ich mache das beste Steak der Stadt. Du glaubst es nicht? Ich beweise es dir!", 1,
+				"/assets/img/steak.jpg"));
 
 		participationRepository.deleteAll();
 
