@@ -15,6 +15,7 @@ import { OccasionComponent } from './components/occasion/occasion.component';
 import { OccasionSelectComponent } from './pages/occasion-select/occasion-select.component';
 import { ConfirmationPageComponent } from './pages/confirmation-page/confirmation-page.component';
 import { OccasionCreateComponent } from './pages/occasion-create/occasion-create.component';
+import { ModeSelectionComponent } from './pages/mode-selection/mode-selection.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { OccasionCreateComponent } from './pages/occasion-create/occasion-create
     OccasionComponent,
     OccasionSelectComponent,
     ConfirmationPageComponent,
-    OccasionCreateComponent
+    OccasionCreateComponent,
+    ModeSelectionComponent
   ],
   imports: [
     BrowserModule,
