@@ -1,5 +1,5 @@
 <div (swiperight)="onSwipeRight(occasion)" (swipeleft)="onSwipeLeft(occasion,$event)">
-    <img class="image" src="/./../..{{occasion.occasion.picture}}">
+    <img class="image" src="/./../..{{occasion.occasion.picture}}" (swiperight)="onSwipeRight(occasion)" (swipeleft)="onSwipeLeft(occasion,$event)">
     <h3> {{occasion.occasion.title}}</h3>
     <p> Beschreibung: {{occasion.occasion.description}}</p>
     <p> Erstellt von: {{occasion.initiator.name}}</p>
