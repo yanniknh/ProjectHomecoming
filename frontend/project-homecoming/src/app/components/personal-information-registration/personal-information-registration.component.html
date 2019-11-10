@@ -1,15 +1,7 @@
 <div class="container">
-<h1>Jetzt registrieren und loslegen</h1>
+<h1 style="text-align: center;">Jetzt registrieren und loslegen</h1>
 &nbsp;
-<div class="input-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="inputGroupFileAddon01">Profilbild</span>
-    </div>
-    <div class="custom-file">
-            <input type="file" class="custom-file-input" id="inputGroupFile01"
-              aria-describedby="inputGroupFileAddon01">
-    </div>
-</div>
+
 &nbsp;
     <form #personalInfoForm="ngForm" name="registerForm" (ngSubmit)="onSubmit(personalInfoForm.value)">
         <div class="form-group">
@@ -33,6 +25,15 @@
             *ngIf="phoneNumber.touched && phoneNumber.hasError('required')">Bitte Pflichtfeld ausfüllen!</small>
           </div>
          
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupFileAddon01">Profilbild</span>
+            </div>
+            <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile01"
+                      aria-describedby="inputGroupFileAddon01">
+            </div>
+        </div>
        
         <div class="form-row">
                 <span *ngIf="Name.valid && phoneNumber.valid" style="text-align: center;">
@@ -40,4 +41,5 @@
                 </span>
         </div>
     </form>
+    
 </div>
