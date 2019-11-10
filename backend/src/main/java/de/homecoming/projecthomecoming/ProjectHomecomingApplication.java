@@ -120,9 +120,9 @@ public class ProjectHomecomingApplication {
 	@PostMapping(path = "/occasions")
 	public OccasionWithInitiator addOccasion(@RequestBody OccasionWithInitiator occasionWithInitiator) {
 		OccasionWithInitiator newOccasionWithInitiator = new OccasionWithInitiator(null, null);
+		occasionWithInitiator.getOccasion().setInitiatorId(occasionWithInitiator.getInitiator().getId());
 		newOccasionWithInitiator.setOccasion(occasionRepository.save(occasionWithInitiator.getOccasion()));
-		participationRepository.save(new Participation(occasionWithInitiator.getInitiator().getId(),
-				newOccasionWithInitiator.getOccasion().getId()));
+		//Participation
 		newOccasionWithInitiator.setInitiator(userRepository.findById(occasionWithInitiator.getInitiator().getId()));
 		return newOccasionWithInitiator;
 	}
