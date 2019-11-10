@@ -1,6 +1,5 @@
 package de.homecoming.projecthomecoming.data;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
