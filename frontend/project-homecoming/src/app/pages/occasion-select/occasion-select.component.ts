@@ -34,7 +34,7 @@ export class OccasionSelectComponent implements OnInit {
       if( this.occasionList.length === 0 )
       {
         alert("Leider konnten wir keine Veranstaltung unten deinen Suchkriterien finden");
-        
+        this.router.navigateByUrl("/modeSelection");
       }
     })
     
