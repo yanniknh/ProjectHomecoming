@@ -10,3 +10,40 @@ html, body {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
 }
+
+#logo sup{
+    font-size: 62px;
+    line-height: 80px;
+}
+
+#logo  {
+    margin: 80px;
+    font-size: 80px;
+    color: white;
+}
+
+#claim {
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 0px;
+    margin-bottom: 40px;
+    padding: 20px;
+    color: white;
+    font-size: 30px;
+}
+
+.homecomingButton{
+    margin: 100px;
+    padding: 15px 40px;
+    text-transform: uppercase;
+    background-color: #2c3e50 !important;
+    border-style: none !important;
+    color: white;
+}
+
+.homecomingButton:hover{
+    color: white;
+}
+
+#video {
+    filter: brightness(40%);
+}
