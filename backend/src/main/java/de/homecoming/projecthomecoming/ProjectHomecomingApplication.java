@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import de.homecoming.projecthomecoming.data.Occasion;
 import de.homecoming.projecthomecoming.data.OccasionRepository;
 import de.homecoming.projecthomecoming.data.OccasionWithInitiator;
+import de.homecoming.projecthomecoming.data.Participation;
 import de.homecoming.projecthomecoming.data.ParticipationRepository;
 import de.homecoming.projecthomecoming.data.Preference;
 import de.homecoming.projecthomecoming.data.PreferenceRepository;
@@ -117,8 +118,13 @@ public class ProjectHomecomingApplication {
 	}
 
 	@PostMapping(path = "/occasions")
-	public Occasion addOccasion(@RequestBody Occasion occasion) {
-		return occasionRepository.save(occasion);
+	public OccasionWithInitiator addOccasion(@RequestBody OccasionWithInitiator occasionWithInitiator) {
+		OccasionWithInitiator newOccasionWithInitiator = new OccasionWithInitiator(null, null);
+		newOccasionWithInitiator.setOccasion(occasionRepository.save(occasionWithInitiator.getOccasion()));
+		participationRepository.save(new Participation(occasionWithInitiator.getInitiator().getId(),
+				newOccasionWithInitiator.getOccasion().getId()));
+		newOccasionWithInitiator.setInitiator(userRepository.findById(occasionWithInitiator.getInitiator().getId()));
+		return newOccasionWithInitiator;
 	}
 
 	@GetMapping(path = "/preferences")
@@ -199,8 +205,7 @@ public class ProjectHomecomingApplication {
 				.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 202));
 		userPreferenceRepository
 				.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 201));
-		userPreferenceRepository
-				.save(new UserPreference(userRepository.findByName("Meik").get(0).getId(), (long) 201));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Meik").get(0).getId(), (long) 201));
 		userPreferenceRepository
 				.save(new UserPreference(userRepository.findByName("Henrik").get(0).getId(), (long) 201));
 		userPreferenceRepository
