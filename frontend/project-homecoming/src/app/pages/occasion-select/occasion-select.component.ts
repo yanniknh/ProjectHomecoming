@@ -50,7 +50,8 @@ export class OccasionSelectComponent implements OnInit {
     this.occasionList = this.completeOccasionList.filter( t => t.occasion.id === this.completeOccasionList[this.i].occasion.id );
     }else{
       this.occasionList = this.completeOccasionList.filter( t => t.occasion.id === -1);
-      alert("End reached");
+      alert("Leider konnten wir keine Veranstaltung unten deinen Suchkriterien finden");
+        this.router.navigateByUrl("/modeSelection");
     }
   }
 
