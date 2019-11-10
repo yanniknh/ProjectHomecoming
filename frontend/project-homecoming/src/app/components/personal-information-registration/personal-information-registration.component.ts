@@ -18,6 +18,6 @@ export class PersonalInformationRegistrationComponent implements OnInit {
 
   onSubmit(any) {
     this.userService.setUserPersonalInfo(any.name, any.phoneNumber, any.age);
-    this.router.navigateByUrl('/locationSelection');
+    this.router.navigateByUrl('/modeSelection');
   }
 }
