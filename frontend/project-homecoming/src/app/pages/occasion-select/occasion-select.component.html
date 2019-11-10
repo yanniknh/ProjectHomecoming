@@ -1,5 +1,5 @@
 <h1>Deine Occasion-Auswahl</h1>
 <div>
-<app-occasion *ngFor="let occasion of occasionList" [occasion]='occasion' (swipeLeft)="removeOccasion($event)">   
+<app-occasion *ngFor="let occasion of occasionList" [occasion]='occasion' (swipeLeft)="removeOccasion($event)" (swipeRight)="matchOccasion($event)">   
 </app-occasion>
 </div>

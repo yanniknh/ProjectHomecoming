@@ -2,6 +2,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { OccasionWithInitiator } from 'src/app/models/OccasionWithInitiator';
 import { UserService } from 'src/app/services/user.service';
 import { OccasionServiceService } from 'src/app/services/occasion-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-occasion-select',
@@ -20,8 +21,7 @@ export class OccasionSelectComponent implements OnInit {
   occasion: OccasionWithInitiator;
   i: number;
 
-  constructor(private occassionService: OccasionServiceService) {
-    
+  constructor(private occassionService: OccasionServiceService, private router: Router) {
    }
 
   ngOnInit() {
@@ -31,12 +31,19 @@ export class OccasionSelectComponent implements OnInit {
       this.completeOccasionList = data;
       this.i=0;
       this.occasionList = this.occasionList.filter( t => t.occasion.id === this.occasionList[this.i].occasion.id );
+      if( this.occasionList.length = 0 )
+      {
+        alert("Leider konnten wir keine Veranstaltung unten deinen Suchkriterien finden");
+      }
     })
     
   }
 
-  removeOccasion(occasion: OccasionWithInitiator){
-    this.occasion = occasion;
+  matchOccasion(){
+    sessionStorage.setItem('match',JSON.stringify(this.completeOccasionList[this.i]));
+    this.router.navigateByUrl('/confirmation');
+  }
+  removeOccasion(){
     if(this.i < this.completeOccasionList.length-1){
       this.i = this.i+1;
     this.occasionList = this.completeOccasionList.filter( t => t.occasion.id === this.completeOccasionList[this.i].occasion.id );
