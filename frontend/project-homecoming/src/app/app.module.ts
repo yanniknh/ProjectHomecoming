@@ -28,11 +28,8 @@ import { OccasionCreateComponent } from './pages/occasion-create/occasion-create
     MealTimeSelectionComponent,
     OccasionComponent,
     OccasionSelectComponent,
-<<<<<<< HEAD
     ConfirmationPageComponent,
-=======
-    OccasionCreateComponent,
->>>>>>> 7e57ddba8af6ef8423f5248986616f5aaf8ee313
+    OccasionCreateComponent
   ],
   imports: [
     BrowserModule,

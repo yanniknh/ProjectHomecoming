@@ -31,10 +31,10 @@ export class OccasionSelectComponent implements OnInit {
       this.completeOccasionList = data;
       this.i=0;
       this.occasionList = this.occasionList.filter( t => t.occasion.id === this.occasionList[this.i].occasion.id );
-      if( this.occasionList.length = 0 )
-      {
-        alert("Leider konnten wir keine Veranstaltung unten deinen Suchkriterien finden");
-      }
+      //if( this.occasionList.length = 0 )
+      //{
+       // alert("Leider konnten wir keine Veranstaltung unten deinen Suchkriterien finden");
+      //}
     })
     
   }
