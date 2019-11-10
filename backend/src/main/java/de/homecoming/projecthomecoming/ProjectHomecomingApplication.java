@@ -61,7 +61,7 @@ public class ProjectHomecomingApplication {
 
 	private Preference[] preferences = { new Preference((long) 1, "nutritionForms", "vegan"),
 			new Preference((long) 2, "nutritionForms", "vegetarian"),
-			new Preference((long) 3, "nutritionForms", "kosher"),
+			new Preference((long) 3, "nutritionForms", "meat"),
 			new Preference((long) 4, "nutritionForms", "glutenFree"),
 			new Preference((long) 5, "nutritionForms", "halal"),
 			new Preference((long) 6, "nutritionForms", "lactoseFree"), new Preference((long) 101, "location", "home"),
@@ -176,16 +176,17 @@ public class ProjectHomecomingApplication {
 
 		userPreferenceRepository.deleteAll();
 		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 4));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 5));
 		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 2));
 		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 1));
-		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 3));
 		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 4));
 		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Yannik").get(0).getId(), (long) 5));
-		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 3));
 		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Felix").get(0).getId(), (long) 2));
 		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Meik").get(0).getId(), (long) 4));
-		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Henrik").get(0).getId(), (long) 5));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Meik").get(0).getId(), (long) 3));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Henrik").get(0).getId(), (long) 3));
 		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Laura").get(0).getId(), (long) 6));
+		userPreferenceRepository.save(new UserPreference(userRepository.findByName("Laura").get(0).getId(), (long) 3));
 
 		userPreferenceRepository
 				.save(new UserPreference(userRepository.findByName("Lukas").get(0).getId(), (long) 101));
