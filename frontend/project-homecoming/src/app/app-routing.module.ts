@@ -21,11 +21,8 @@ const routes: Routes = [
 { path: 'timeSelection', component: MealTimeSelectionComponent},
 { path: 'preferenceSelection', component: PreferenceSelectionComponent},
 { path: 'occasionSelection', component: OccasionSelectComponent},
-<<<<<<< HEAD
-{ path: 'confirmation', component: ConfirmationPageComponent}
-=======
+{ path: 'confirmation', component: ConfirmationPageComponent},
 { path: 'createOccasion', component: OccasionCreateComponent}
->>>>>>> 7e57ddba8af6ef8423f5248986616f5aaf8ee313
 ];
 
 @NgModule({
